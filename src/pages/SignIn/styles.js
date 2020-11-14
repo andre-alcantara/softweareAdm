@@ -5,6 +5,7 @@ export const Label = styled.Text `
     color: #121212;
     margin-top: 30px;
     margin-bottom: 14px;
+    font-family: SF_Medium;
 `;
 
 export const Input = styled.TextInput `
@@ -27,7 +28,8 @@ export const SubmitButton = styled.TouchableOpacity `
 `;
 
 export const SubmitText = styled.Text `
-    font-size: 15px;
+    font-size: 16px;
     color: #FFF;
     font-weight: bold;
+    font-family: SF_Bold;
 `;

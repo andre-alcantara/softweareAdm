@@ -11,6 +11,7 @@ export const Container = styled.View `
 `;
 
 export const Title = styled.Text `
+    font-family: SF_Bold;
     font-size: 23px;
     font-weight: bold;
     color: #121212;
@@ -18,6 +19,7 @@ export const Title = styled.Text `
 `;
 
 export const SubTitle = styled.Text `
+    font-family: SF_Regular;
     font-size: 17px;
     color: #5D5A5A;
     margin-top: 8px;
