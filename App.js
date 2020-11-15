@@ -27,6 +27,7 @@ import Routes from './src/routes/routes';
       <NavigationContainer>
         <StatusBar 
           barStyle= 'dark-content'
+          backgroundColor='transparent'
         />
         <Routes /> 
       </NavigationContainer>

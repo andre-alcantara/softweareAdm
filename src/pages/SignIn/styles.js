@@ -9,8 +9,8 @@ export const Label = styled.Text `
 `;
 
 export const Input = styled.TextInput `
-    border-width: 0.3px;
-    border-color: #121212;
+    border-width: 1px;
+    border-color: #323992;
     height: 50px;
     border-radius: 6px;
     font-size: 15px;
@@ -20,7 +20,7 @@ export const Input = styled.TextInput `
 
 export const SubmitButton = styled.TouchableOpacity `
     height: 50px;
-    background-color: #6272A4;
+    background-color: #323992;
     align-items: center;
     justify-content: center;
     border-radius: 6px;

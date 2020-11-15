@@ -4,14 +4,14 @@ import { Container, SubTitle, Title, Wrapper } from '../Home/styles';
 
 import { Button, ButtonText } from './styles';
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }) => {
   return (
       <Wrapper>
         <Container>
           <Title>Olá André Alcantara de Melo Pimentel</Title>
           <SubTitle>O que você deseja fazer no LovePhysics?</SubTitle>
 
-          <Button onPress={() => {}} style={{
+          <Button onPress={() => navigation.navigate('ThemeChoose')} style={{
             backgroundColor: '#FF5555',
           }}>
             
