@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled.SafeAreaView `
+  
+    background-color: #FFF;
+    height: 100%;
+`;
+
+
 export const Container = styled.ScrollView `
     width: 90%;
+    height: 10%;
     align-self: center;
 `;
 

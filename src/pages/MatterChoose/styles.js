@@ -6,7 +6,7 @@ export const Footer = styled.View `
     height: 13%;
     background-color: #FFF;
     border-top-width: 1px;
-    border-top-color: #D1D0D0;
+    border-top-color: #EFEDED;
     padding-left: 20px;
     padding-right: 20px;
     position: absolute; 

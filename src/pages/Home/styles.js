@@ -15,14 +15,14 @@ export const Title = styled.Text `
     font-size: 23px;
     font-weight: bold;
     color: #121212;
-    margin-top: 30px;
+    margin-top: 20px;
 `;
 
 export const SubTitle = styled.Text `
     font-family: SF_Regular;
     font-size: 17px;
     color: #5D5A5A;
-    margin-top: 8px;
+    margin-top: 6px;
     margin-bottom: 30px;
 `;
 

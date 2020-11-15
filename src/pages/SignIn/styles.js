@@ -20,7 +20,6 @@ export const Input = styled.TextInput `
 
 export const SubmitButton = styled.TouchableOpacity `
     height: 50px;
-    background-color: #323992;
     align-items: center;
     justify-content: center;
     border-radius: 6px;

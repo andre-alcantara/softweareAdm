@@ -11,7 +11,7 @@ const Dashboard = ({ navigation }) => {
           <Title>Olá André Alcantara de Melo Pimentel</Title>
           <SubTitle>O que você deseja fazer no LovePhysics?</SubTitle>
 
-          <Button onPress={() => navigation.navigate('ThemeChoose')} style={{
+          <Button onPress={() => navigation.navigate('MatterChoose')} style={{
             backgroundColor: '#FF5555',
           }}>
             

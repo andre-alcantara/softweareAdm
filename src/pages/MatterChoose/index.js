@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, Image } from 'react-native';
 import { Button, ButtonText } from '../Dashboard/styles';
 import { SubTitle, Title, Wrapper, Container } from '../Home/styles';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { Footer } from './styles';
 
@@ -9,7 +10,7 @@ import Activity from '../../data/activity';
 import { color } from 'react-native-reanimated';
 import { SubmitButton, SubmitText } from '../SignIn/styles';
 
-const ThemeChoose = ({ navigation }) => {
+const MatterChoose = ({ navigation }) => {
 
 
   return (
@@ -35,7 +36,9 @@ const ThemeChoose = ({ navigation }) => {
             <Button style={{
               backgroundColor: item.color
             }}>
-              <ButtonText>{item.title}</ButtonText>
+              <ButtonText style={{
+                color: '#FFF'
+              }}>{item.title}</ButtonText>
               <Image 
                 style={{
                   width: 70,
@@ -53,12 +56,20 @@ const ThemeChoose = ({ navigation }) => {
       </Container>
       
           <Footer>
-            <SubmitButton onPress={() => navigation.navigate('ThemeCreate')} 
+            <SubmitButton onPress={() => navigation.navigate('MatterCreate')} 
             style={{
               marginTop: 15,
               marginBottom: 10
             }}>
-              <SubmitText>Criar uma matéria</SubmitText>
+              <LinearGradient colors={['#80D8FF', '#EA80FC']} style={{
+            height: 50,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 6,
+          }}>
+            <SubmitText>Criar uma matéria</SubmitText>
+            </LinearGradient>
             </SubmitButton>
           </Footer>
     
@@ -67,4 +78,4 @@ const ThemeChoose = ({ navigation }) => {
   );
 }
 
-export default ThemeChoose;
+export default MatterChoose;
