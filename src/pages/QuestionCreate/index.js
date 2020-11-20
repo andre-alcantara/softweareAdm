@@ -33,7 +33,8 @@ const QuestionCreate = () => {
       <Label>Dificuldade:</Label>
       <Picker
         selectedValue={language}
-        style={{ marginTop: -60, marginBottom: 140, height: 10, width: '100%'}}
+        itemStyle={{ fontFamily: 'SF_Medium'  }}
+        style={{ width: '100%', borderRadius: 6}}
         onValueChange={(itemValue, itemIndex) =>
           setLanguage(itemValue)
         }>
