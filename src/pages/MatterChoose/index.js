@@ -33,8 +33,11 @@ const MatterChoose = ({ navigation }) => {
           keyExtractor={ item  => item.id}
           data={Activity}
           renderItem={({ item }) => 
-            <Button style={{
-              backgroundColor: item.color
+            <Button onPress={() => navigation.navigate('MatterIndex', {
+              item: item
+            })}
+              style={{
+                backgroundColor: item.color
             }}>
               <ButtonText style={{
                 color: '#FFF'

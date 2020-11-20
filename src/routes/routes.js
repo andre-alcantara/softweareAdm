@@ -18,6 +18,8 @@ import Home from '../pages/Home';
 import Dashboard from '../pages/Dashboard';
 import MatterChoose from '../pages/MatterChoose';
 import MatterCreate from '../pages/MatterCreate';
+import MatterIndex from '../pages/MatterIndex';
+import QuestionCreate from '../pages/QuestionCreate';
 
 const Routes = () => {
   return (
@@ -39,6 +41,14 @@ const Routes = () => {
         title: 'Voltar',
       }} />
       <Stack.Screen name='MatterCreate' component={MatterCreate} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+      }} />
+       <Stack.Screen name='MatterIndex' component={MatterIndex} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+      }} />
+      <Stack.Screen name='QuestionCreate' component={QuestionCreate} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
       }} />

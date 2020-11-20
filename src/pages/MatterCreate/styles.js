@@ -13,7 +13,7 @@ export const Container = styled.ScrollView `
     align-self: center;
 `;
 
-export const PhotoView = styled.TouchableOpacity `
+export const PhotoView = styled.View `
     flex-direction: row;
     align-items: center;
 `;
