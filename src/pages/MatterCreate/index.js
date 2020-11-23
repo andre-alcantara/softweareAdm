@@ -19,13 +19,11 @@ const MatterCreate = () => {
         key={color}
         style={{backgroundColor: color, width: 50, height: 50, borderRadius: 8}}
         onPress={() => {
-          setColor(color);
-          
+          setColor(color);      
         }
         }
         >
-
-        </TouchableOpacity>
+      </TouchableOpacity>
       )
     })
   }

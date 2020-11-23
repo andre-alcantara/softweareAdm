@@ -28,7 +28,9 @@ const MatterIndex = ({ route, navigation }) => {
           keyExtractor={ item  => item.id}
           data={Questions}
           renderItem={({ item }) => 
-            <QuestionButton >
+            <QuestionButton onPress={() => navigation.navigate('QuestionControl', {
+              item: item
+            })}>
               <QuestionText numberOfLines={2}>{item.question}</QuestionText>
               <DifficultyView>
                 <DifficultyText style={{
@@ -56,7 +58,7 @@ const MatterIndex = ({ route, navigation }) => {
             justifyContent: 'center',
             borderRadius: 6,
           }}>
-            <SubmitText>Criar uma perguta</SubmitText>
+            <SubmitText>Criar uma pergunta</SubmitText>
           </LinearGradient>
           
         </SubmitButton>

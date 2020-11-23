@@ -12,14 +12,17 @@ function ActionBarIcon() {
   );
 }
 
-// screens
+// login 
 import SignIn from '../pages/SignIn';
 import Home from '../pages/Home';
+
+// dashboard 
 import Dashboard from '../pages/Dashboard';
 import MatterChoose from '../pages/MatterChoose';
 import MatterCreate from '../pages/MatterCreate';
 import MatterIndex from '../pages/MatterIndex';
 import QuestionCreate from '../pages/QuestionCreate';
+import QuestionControl from '../pages/QuestionControl';
 
 const Routes = () => {
   return (
@@ -49,6 +52,10 @@ const Routes = () => {
          title: 'Voltar',
       }} />
       <Stack.Screen name='QuestionCreate' component={QuestionCreate} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+      }} />
+      <Stack.Screen name='QuestionControl' component={QuestionControl} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
       }} />

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
 import { SubTitle, Title, Wrapper } from '../Home/styles';
 import { Input, Label, SubmitButton, SubmitText } from '../SignIn/styles';
 import { Container } from '../MatterCreate/styles';
@@ -10,7 +9,8 @@ import { Picker } from '@react-native-picker/picker';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const QuestionCreate = () => {
-  const [language, setLanguage] = useState('')
+  const [language, setLanguage] = useState('');
+  const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
   return (
     <Wrapper>
@@ -45,9 +45,15 @@ const QuestionCreate = () => {
 
       <Label>Resposta 1:</Label>
       <Input></Input>
+    
+        
+    
+      
 
       <Label>Resposta 2:</Label>
       <Input></Input>
+      
+     
 
       <Label>Resposta 3:</Label>
       <Input></Input>
