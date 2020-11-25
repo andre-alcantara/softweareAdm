@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Routes from './src/routes/routes';
 import AuthProvider from './src/contexts/auth';
 import QuestionsProvider from './src/contexts/questions';
+import ScientistsProvider from './src/contexts/scientist';
   
   const App = () => {
     let [fontsLoaded] = useFonts({
@@ -25,11 +26,13 @@ import QuestionsProvider from './src/contexts/questions';
       <NavigationContainer>
         <AuthProvider>
           <QuestionsProvider>
-            <StatusBar 
-              barStyle= 'dark-content'
-              backgroundColor='transparent'
-            />
-            <Routes /> 
+            <ScientistsProvider>
+              <StatusBar 
+                barStyle= 'dark-content'
+                backgroundColor='transparent'
+              />
+              <Routes /> 
+            </ScientistsProvider>
           </QuestionsProvider>
         </AuthProvider>
       </NavigationContainer>

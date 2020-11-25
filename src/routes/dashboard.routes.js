@@ -21,6 +21,9 @@ import LessonCreate from '../pages/LessonCreate';
 import QuestionIndex from '../pages/QuestionIndex';
 import QuestionCreate from '../pages/QuestionCreate';
 import QuestionControl from '../pages/QuestionControl';
+import ScientistIndex from '../pages/ScientistIndex';
+import ScientistCreate from '../pages/ScientistCreate';
+import ScientistControl from '../pages/ScientistControl';
 
 const DashboardRoutes = () => {
   return (
@@ -54,6 +57,18 @@ const DashboardRoutes = () => {
          title: 'Voltar',
       }} />
       <Stack.Screen name='QuestionControl' component={QuestionControl} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+      }} />
+      <Stack.Screen name='ScientistIndex' component={ScientistIndex} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+      }} />
+      <Stack.Screen name='ScientistCreate' component={ScientistCreate} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+      }} />
+      <Stack.Screen name='ScientistControl' component={ScientistControl} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
       }} />

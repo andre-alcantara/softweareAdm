@@ -12,7 +12,7 @@ import { RadioButton, Text } from 'react-native-paper';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-const QuestionControl = ({ route }) => {
+const QuestionControl = ({ route, navigation }) => {
   const { question, correction, answer } = route?.params;
 
   const [value, setValue] = React.useState('first');

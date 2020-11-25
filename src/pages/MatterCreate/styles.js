@@ -22,7 +22,7 @@ export const Photo = styled.View `
     width: 110px;
     height: 110px;
     border-width: 1px;
-    border-color: #323992;
+    border-color: #EA80FC;
     border-radius: 8px;
 `;
 

@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Footer = styled.View `
     width: 100%;
-    
     background-color: #FFF;
     border-top-width: 1px;
     border-top-color: #EFEDED;

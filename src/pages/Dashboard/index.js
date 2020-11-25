@@ -50,7 +50,7 @@ const Dashboard = ({ navigation }) => {
             />
           </Button>
 
-          <Button onPress={() => {}} style={{
+          <Button onPress={() => navigation.navigate('ScientistIndex')} style={{
             backgroundColor: '#323992',
           }}>
             <ButtonText style={{
