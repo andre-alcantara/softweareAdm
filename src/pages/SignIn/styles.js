@@ -10,7 +10,7 @@ export const Label = styled.Text `
 
 export const Input = styled.TextInput `
     border-width: 1px;
-    border-color: #323992;
+    border-color: #EA80FC;
     height: 50px;
     border-radius: 6px;
     font-size: 15px;

@@ -14,6 +14,7 @@ function ActionBarIcon() {
 
 // screens
 import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
 import Home from '../pages/Home';
 
 const AuthRoutes = () => {
@@ -24,6 +25,10 @@ const AuthRoutes = () => {
         title: 'Voltar',
         }}/>
       <Stack.Screen name='SignIn' component={SignIn} options={{
+        headerTitle:  props => <ActionBarIcon {...props} />,
+        title: 'Voltar',
+      }} />
+      <Stack.Screen name='SignUp' component={SignUp} options={{
         headerTitle:  props => <ActionBarIcon {...props} />,
         title: 'Voltar',
       }} />

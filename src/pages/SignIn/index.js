@@ -62,6 +62,19 @@ const SignIn = ({ navigation }) => {
             <SubmitText>Entrar</SubmitText>
             </LinearGradient>
           </SubmitButton>
+
+          <SubmitButton style={{
+            marginTop: 20,
+            borderWidth: 1,
+            borderColor: '#EA80FC'
+          }} onPress={() => navigation.navigate('SignUp')}>
+          
+            <SubmitText style={{
+              color: '#EA80FC'
+            }}>Criar Conta</SubmitText>
+            
+          </SubmitButton>
+       
        
         
       </Container>
