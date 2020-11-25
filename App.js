@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 
 import { NavigationContainer } from '@react-navigation/native';
 import Routes from './src/routes/routes';
+import AuthProvider from './src/contexts/auth';
 
 
   
@@ -22,12 +23,15 @@ import Routes from './src/routes/routes';
     } else {
   
     return (
+     
       <NavigationContainer>
-        <StatusBar 
-          barStyle= 'dark-content'
-          backgroundColor='transparent'
-        />
-        <Routes /> 
+        <AuthProvider>
+          <StatusBar 
+            barStyle= 'dark-content'
+            backgroundColor='transparent'
+          />
+          <Routes /> 
+        </AuthProvider>
       </NavigationContainer>
     )
   }

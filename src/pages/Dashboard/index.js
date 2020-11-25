@@ -1,14 +1,22 @@
-import React from 'react';
-import { Image } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Image, TouchableOpacity } from 'react-native';
 import { Container, SubTitle, Title, Wrapper } from '../Home/styles';
 
+import { LinearGradient } from 'expo-linear-gradient';
+
+import { AuthContext } from '../../contexts/auth';
+
 import { Button, ButtonText } from './styles';
+import { Footer } from '../MatterChoose/styles';
+import { SubmitButton, SubmitText } from '../SignIn/styles';
 
 const Dashboard = ({ navigation }) => {
+  const { user, signOut } = useContext(AuthContext);
+
   return (
       <Wrapper>
         <Container>
-          <Title>Olá André Alcantara de Melo Pimentel</Title>
+          <Title>Olá, {user && user.name}</Title>
           <SubTitle>O que você deseja fazer no LovePhysics?</SubTitle>
 
           <Button onPress={() => navigation.navigate('MatterChoose')} style={{
@@ -55,8 +63,25 @@ const Dashboard = ({ navigation }) => {
               source={require('../../img/cientistas.png')}
             />
           </Button>
+          
+         
+        
 
         </Container>
+
+        <Footer>
+          <SubmitButton onPress={signOut} style={{ marginTop: 14 }}>
+            <LinearGradient colors={['#FF5555', '#CF8686']} style={{
+              height: 50,
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 6,
+            }}>
+           <SubmitText>Sair</SubmitText>
+            </LinearGradient>
+          </SubmitButton>
+          </Footer>
       </Wrapper>
   );
 }
