@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FlatList, Image } from 'react-native';
 import { Button, ButtonText } from '../Dashboard/styles';
 import { SubTitle, Title, Wrapper, Container } from '../Home/styles';
@@ -7,10 +7,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Footer } from './styles';
 
 import Activity from '../../data/activity';
-import { color } from 'react-native-reanimated';
 import { SubmitButton, SubmitText } from '../SignIn/styles';
 
+import { QuestionsContext } from '../../contexts/questions';
+
+
 const MatterChoose = ({ navigation }) => {
+  const { matters } = useContext(QuestionsContext);
 
 
   return (
@@ -31,23 +34,24 @@ const MatterChoose = ({ navigation }) => {
             paddingBottom: 195
           }}
           keyExtractor={ item  => item.id}
-          data={Activity}
+          data={matters}
           renderItem={({ item }) => 
             <Button onPress={() => navigation.navigate('MatterIndex', {
-              item: item
+              question: item,
+              content: item.matterContent
             })}
               style={{
-                backgroundColor: item.color
+                backgroundColor: item.matterColor
             }}>
               <ButtonText style={{
                 color: '#FFF'
-              }}>{item.title}</ButtonText>
+              }}>{item.matterName}</ButtonText>
               <Image 
                 style={{
                   width: 70,
                   height: 70,
                 }}
-                source={{uri: `https://lovephysics.blob.core.windows.net/${item.icon}`}}
+                source={{uri: `${item.matterIcon}`}}
               />         
             
             </Button>

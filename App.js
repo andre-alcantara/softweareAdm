@@ -6,9 +6,7 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import Routes from './src/routes/routes';
 import AuthProvider from './src/contexts/auth';
-
-
-  
+import QuestionsProvider from './src/contexts/questions';
   
   const App = () => {
     let [fontsLoaded] = useFonts({
@@ -26,11 +24,13 @@ import AuthProvider from './src/contexts/auth';
      
       <NavigationContainer>
         <AuthProvider>
-          <StatusBar 
-            barStyle= 'dark-content'
-            backgroundColor='transparent'
-          />
-          <Routes /> 
+          <QuestionsProvider>
+            <StatusBar 
+              barStyle= 'dark-content'
+              backgroundColor='transparent'
+            />
+            <Routes /> 
+          </QuestionsProvider>
         </AuthProvider>
       </NavigationContainer>
     )

@@ -17,6 +17,7 @@ import Dashboard from '../pages/Dashboard';
 import MatterChoose from '../pages/MatterChoose';
 import MatterCreate from '../pages/MatterCreate';
 import MatterIndex from '../pages/MatterIndex';
+import QuestionIndex from '../pages/QuestionIndex';
 import QuestionCreate from '../pages/QuestionCreate';
 import QuestionControl from '../pages/QuestionControl';
 
@@ -36,6 +37,10 @@ const DashboardRoutes = () => {
          title: 'Voltar',
       }} />
        <Stack.Screen name='MatterIndex' component={MatterIndex} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+      }} />
+       <Stack.Screen name='QuestionIndex' component={QuestionIndex} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
       }} />

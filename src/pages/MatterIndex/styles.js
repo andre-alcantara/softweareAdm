@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const QuestionButton = styled.TouchableOpacity `
     border-bottom-width: 0.8px;
-    border-bottom-color: #D9D2D2;
+    border-bottom-color: #AAA4A4;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-bottom: 15px;
 `;
 
 export const QuestionText = styled.Text `

@@ -13,11 +13,11 @@ import { RadioButton, Text } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const QuestionControl = ({ route }) => {
-  const { item } = route?.params;
+  const { question, correction, answer } = route?.params;
 
   const [value, setValue] = React.useState('first');
-  const [language, setLanguage] = useState(item.difficulty);
-  const [checkedColor, setcheckedColor] = useState(0)
+  const [language, setLanguage] = useState('');
+
 
   return (
     <Wrapper>
@@ -35,9 +35,23 @@ const QuestionControl = ({ route }) => {
         style={{
           height: 150,
           paddingTop: 10,
-          paddingRight: 10
+          paddingRight: 10,
+          paddingBottom: 10
         }}>
-          <SubTitle>{item.question}</SubTitle>
+          <SubTitle style={{ fontSize: 18, color: '#121212' }}>{question}</SubTitle>
+        </Input>
+
+        <Label>Correção:</Label>
+        <Input 
+        numberOfLines={10}
+        multiline={true}
+        style={{
+          height: 150,
+          paddingTop: 10,
+          paddingRight: 10,
+          paddingBottom: 10
+        }}>
+          <SubTitle style={{ fontSize: 18, color: '#121212' }}>{correction}</SubTitle>
         </Input>
 
       <Label>Dificuldade:</Label>
@@ -54,7 +68,7 @@ const QuestionControl = ({ route }) => {
       </Picker>
 
       <Label>Resposta 1:</Label>
-      <Input>{item.answers[0].answer}</Input>
+      <Input>{answer[0].answer}</Input>
 
       <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
       <View>
@@ -74,7 +88,7 @@ const QuestionControl = ({ route }) => {
     
     
       <Label>Resposta 2:</Label>
-      <Input>{item.answers[1].answer}</Input>
+      <Input>{answer[1].answer}</Input>
       <View>
         <RadioButton.Item color='#FF5555' 
         style={{
@@ -90,7 +104,7 @@ const QuestionControl = ({ route }) => {
       </View>
       
       <Label>Resposta 3:</Label>
-      <Input>{item.answers[2].answer}</Input>
+      <Input>{answer[2].answer}</Input>
       <View>
         <RadioButton.Item color='#FF5555' 
         style={{
@@ -106,7 +120,7 @@ const QuestionControl = ({ route }) => {
       </View>
 
       <Label>Resposta 4:</Label>
-      <Input>{item.answers[3].answer}</Input>
+      <Input>{answer[3].answer}</Input>
       <View>
         <RadioButton.Item color='#FF5555' 
         style={{
@@ -142,7 +156,7 @@ const QuestionControl = ({ route }) => {
          </LinearGradient>
         </SubmitButton>
 
-        <SubmitButton style={{ marginTop: 3, marginBottom: 12 }}>
+        <SubmitButton style={{ marginTop: 0, marginBottom: 20 }}>
         <LinearGradient colors={['#FF5555', '#CF8686']} style={{
           height: 50,
           width: '100%',

@@ -38,6 +38,7 @@ const SignIn = ({ navigation }) => {
         
         <Label style={{ marginTop: 15 }}>Nome completo</Label>
         <Input
+          autoCapitalize='words'
           value={name}
           onChangeText={(text) => setName(text)}
         />  
