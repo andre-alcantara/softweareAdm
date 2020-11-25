@@ -21,4 +21,6 @@ const Routes = () => {
   ) 
 }
 
+console.disableYellowBox = true;
+
 export default Routes;

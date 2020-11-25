@@ -6,7 +6,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { Footer } from './styles';
 
-import Activity from '../../data/activity';
 import { SubmitButton, SubmitText } from '../SignIn/styles';
 
 import { QuestionsContext } from '../../contexts/questions';
@@ -36,7 +35,7 @@ const MatterChoose = ({ navigation }) => {
           keyExtractor={ item  => item.id}
           data={matters}
           renderItem={({ item }) => 
-            <Button onPress={() => navigation.navigate('MatterIndex', {
+            <Button onPress={() => navigation.navigate('LessonIndex', {
               question: item,
               content: item.matterContent
             })}

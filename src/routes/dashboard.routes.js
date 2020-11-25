@@ -16,7 +16,8 @@ function ActionBarIcon() {
 import Dashboard from '../pages/Dashboard';
 import MatterChoose from '../pages/MatterChoose';
 import MatterCreate from '../pages/MatterCreate';
-import MatterIndex from '../pages/MatterIndex';
+import LessonIndex from '../pages/LessonIndex';
+import LessonCreate from '../pages/LessonCreate';
 import QuestionIndex from '../pages/QuestionIndex';
 import QuestionCreate from '../pages/QuestionCreate';
 import QuestionControl from '../pages/QuestionControl';
@@ -36,7 +37,11 @@ const DashboardRoutes = () => {
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
       }} />
-       <Stack.Screen name='MatterIndex' component={MatterIndex} options={{
+       <Stack.Screen name='LessonIndex' component={LessonIndex} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+      }} />
+      <Stack.Screen name='LessonCreate' component={LessonCreate} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
       }} />

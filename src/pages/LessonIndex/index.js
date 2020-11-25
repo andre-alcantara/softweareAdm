@@ -7,7 +7,7 @@ import { QuestionButton, QuestionText, DifficultyText, DifficultyView } from './
 import { Footer } from '../MatterChoose/styles';
 import { SubmitButton, SubmitText } from '../SignIn/styles';
 
-const MatterIndex = ({ route, navigation }) => {
+const LessonIndex = ({ route, navigation }) => {
   const { question, content } = route?.params;
 
 
@@ -47,7 +47,7 @@ const MatterIndex = ({ route, navigation }) => {
 
       <Footer>
         <SubmitButton 
-        onPress={() => navigation.navigate('QuestionCreate')}
+        onPress={() => navigation.navigate('LessonCreate')}
         style={{
           marginTop: 15,
           marginBottom: 10
@@ -68,4 +68,4 @@ const MatterIndex = ({ route, navigation }) => {
   );
 }
 
-export default MatterIndex;
+export default LessonIndex;

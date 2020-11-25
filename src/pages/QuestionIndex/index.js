@@ -3,9 +3,8 @@ import { FlatList } from 'react-native';
 import { Container, SubTitle, Title, Wrapper } from '../Home/styles';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import Questions from '../../data/question';
 
-import { QuestionButton, QuestionText, DifficultyText, DifficultyView } from '../MatterIndex/styles';
+import { QuestionButton, QuestionText, DifficultyText, DifficultyView } from '../LessonIndex/styles';
 import { Footer } from '../MatterChoose/styles';
 import { SubmitButton, SubmitText } from '../SignIn/styles';
 
