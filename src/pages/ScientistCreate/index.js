@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, View } from 'react-native';
 import { Title, Wrapper } from '../Home/styles';
 import { Container, Photo, PhotoText, PhotoView } from '../MatterCreate/styles';
@@ -6,10 +6,14 @@ import { Input, Label, SubmitButton, SubmitText } from '../SignIn/styles';
 
 import { Footer } from '../MatterChoose/styles';
 
+import { ScientistsContext } from '../../contexts/scientist';
+
 import { LinearGradient } from 'expo-linear-gradient';
 // import { Container } from './styles';
 
+
 const ScientistCreate = ({ navigation }) => {
+
   return (
     <Wrapper>
       <Container contentContainerStyle={{ paddingBottom: 110 }} showsVerticalScrollIndicator={false}>
@@ -42,11 +46,11 @@ const ScientistCreate = ({ navigation }) => {
         <Label>Homenagens e/ou prêmios:</Label>
         <Input></Input>
 
-      
       </Container>
 
       <Footer>
-        <SubmitButton style={{
+        <SubmitButton
+        style={{
             marginTop: 15,
             marginBottom: 10
           }}>

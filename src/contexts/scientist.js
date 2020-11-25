@@ -6,9 +6,9 @@ export const ScientistsContext = createContext({});
 
 const ScientistsProvider = ({ children }) => {
   const [scientists, setScientists] = useState([]);
-
+  
   async function listScientist(name) {
-    await firebase.database().ref('scientists').orderByChild('name').on('value', (snapshot)=>{
+    await firebase.database().ref('scientists').on('value', (snapshot)=>{
       setScientists([]);
       if (name != '' ){
         snapshot.forEach((value) =>{
@@ -42,12 +42,60 @@ const ScientistsProvider = ({ children }) => {
           setScientists(oldScientist => [...oldScientist, scientist]);
         })
       }
+    });
+  }
 
+  async function updateScientist(scientist) {
+    await firebase.database().ref('scientists').child(scientist.key).update({
+      name: scientist.name,
+      image: scientist.image,
+      life: scientist.life,
+      who: scientist.who,
+      nationality: scientist.nationality,
+      known: scientist.known
+    })
+    .then(() => {
+      console.log('update foi')
+    })
+    .catch((error) => {
+      console.log(error.code)
+    });
+  }
+
+  async function addScientist(scientist) {
+
+    var len = scientists.length;
+    var lastKey = scientists[len - 1].key;
+    lastKey = parseInt(lastKey);
+
+    await firebase.database().ref('scientists').child(lastKey + 1).set({
+      name: scientist.name,
+      image: scientist.image,
+      life: scientist.life,
+      who: scientist.who,
+      nationality: scientist.nationality,
+      known: scientist.known
+    })
+    .then(() => {
+      console.log('add foi')
+    })
+    .catch((error) => {
+      console.log(error.code)
+    });
+  }
+
+  async function delScientist(index) {
+    await firebase.database().ref('scientists').child(index).remove()
+    .then(() => {
+      console.log('remove foi')
+    })
+    .catch((error) => {
+      console.log(error.code)
     });
   }
 
   return (
-    <ScientistsContext.Provider value={{ listScientist, scientists }}>
+    <ScientistsContext.Provider value={{ listScientist, updateScientist, addScientist, delScientist, scientists }}>
       { children }
     </ScientistsContext.Provider>
   );
