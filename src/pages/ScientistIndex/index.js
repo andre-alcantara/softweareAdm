@@ -79,7 +79,7 @@ const ScientistIndex = ({ navigation }) => {
             justifyContent: 'center',
             borderRadius: 6,
           }}>
-            <SubmitText>Inserir um cientista</SubmitText>
+            <SubmitText>Adicionar um cientista</SubmitText>
           </LinearGradient>
           
         </SubmitButton>
