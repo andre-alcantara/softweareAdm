@@ -72,6 +72,8 @@ const ScientistsProvider = ({ children }) => {
 
   async function addScientist(name, image, life, who, nationality, known, award, navigation) {
 
+    listScientist('');
+
     var len = scientists.length;
     var lastKey = scientists[len - 1].key;
     lastKey = parseInt(lastKey);
