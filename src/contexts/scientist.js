@@ -1,5 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react';
 import firebase from '../services/firebaseConnection';
+import { Alert } from 'react-native';
 
 
 export const ScientistsContext = createContext({});
@@ -45,7 +46,7 @@ const ScientistsProvider = ({ children }) => {
     });
   }
 
-  async function updateScientist(key, name, image, life, who, nationality, known) {
+  async function updateScientist(key, name, image, life, who, nationality, known, navigation) {
     await firebase.database().ref('scientists').child(key).update({
       name: name,
       image: image,
@@ -55,39 +56,61 @@ const ScientistsProvider = ({ children }) => {
       known: known
     })
     .then(() => {
-      console.log('update foi')
+      Alert.alert(
+        "Atualizado! 👏",
+        "Seu cientista foi atualizado.",
+        [
+          { text: "OK", onPress: () => navigation.goBack() }
+        ],
+        { cancelable: false }
+      );
     })
     .catch((error) => {
       console.log(error.code)
     });
   }
 
-  async function addScientist(scientist) {
+  async function addScientist(name, image, life, who, nationality, known, award, navigation) {
 
     var len = scientists.length;
     var lastKey = scientists[len - 1].key;
     lastKey = parseInt(lastKey);
 
     await firebase.database().ref('scientists').child(lastKey + 1).set({
-      name: scientist.name,
-      image: scientist.image,
-      life: scientist.life,
-      who: scientist.who,
-      nationality: scientist.nationality,
-      known: scientist.known
+      name: name,
+      image: image,
+      life: life,
+      who: who,
+      nationality: nationality,
+      known: known,
+      award: award
     })
     .then(() => {
-      console.log('add foi')
+      Alert.alert(
+        "Adicionado com sucesso! 👏",
+        "Seu cientista foi adicionado.",
+        [
+          { text: "OK", onPress: () => navigation.goBack() }
+        ],
+        { cancelable: false }
+      );
     })
     .catch((error) => {
       console.log(error.code)
     });
   }
 
-  async function delScientist(index) {
+  async function delScientist(index, navigation) {
     await firebase.database().ref('scientists').child(index).remove()
     .then(() => {
-      console.log('remove foi')
+      Alert.alert(
+        "Removido! 👋",
+        "Seu cientista foi removido.",
+        [
+          { text: "OK", onPress: () => navigation.goBack() }
+        ],
+        { cancelable: false }
+      );
     })
     .catch((error) => {
       console.log(error.code)

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Image } from 'react-native';
 import { Title, Wrapper, SubTitle } from '../Home/styles';
 import { Container, Photo, PhotoText, PhotoView } from '../MatterCreate/styles';
@@ -11,9 +12,10 @@ import { ScientistsContext } from '../../contexts/scientist';
 import { LinearGradient } from 'expo-linear-gradient';
 // import { Container } from './styles';
 
-const ScientistControl = ({ navigation, route }) => {
+const ScientistControl = ({ route }) => {
   const { info } = route?.params;
-  const { updateScientist } = useContext(ScientistsContext);
+  const { updateScientist, delScientist } = useContext(ScientistsContext);
+  const navigation = useNavigation();
 
   const [key, setKey] = useState(info.key);
   const [name, setName] = useState(info.name);
@@ -25,7 +27,11 @@ const ScientistControl = ({ navigation, route }) => {
   const [award, setAward] = useState(info.award);
 
   const handleUpdate = () => {
-    updateScientist(key, name, image, life, who, nationality, known);
+    updateScientist(key, name, image, life, who, nationality, known, navigation);
+  }
+
+  const handleDelete = () => {
+    delScientist(info.key, navigation);
   }
 
   return (
@@ -133,7 +139,9 @@ const ScientistControl = ({ navigation, route }) => {
          </LinearGradient>
         </SubmitButton>
 
-        <SubmitButton style={{ marginTop: 0, marginBottom: 20 }}>
+        <SubmitButton 
+        onPress={handleDelete}
+        style={{ marginTop: 0, marginBottom: 20 }}>
         <LinearGradient colors={['#FF5555', '#CF8686']} style={{
           height: 50,
           width: '100%',
