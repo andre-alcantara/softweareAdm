@@ -45,14 +45,14 @@ const ScientistsProvider = ({ children }) => {
     });
   }
 
-  async function updateScientist(scientist) {
-    await firebase.database().ref('scientists').child(scientist.key).update({
-      name: scientist.name,
-      image: scientist.image,
-      life: scientist.life,
-      who: scientist.who,
-      nationality: scientist.nationality,
-      known: scientist.known
+  async function updateScientist(key, name, image, life, who, nationality, known) {
+    await firebase.database().ref('scientists').child(key).update({
+      name: name,
+      image: image,
+      life: life,
+      who: who,
+      nationality: nationality,
+      known: known
     })
     .then(() => {
       console.log('update foi')

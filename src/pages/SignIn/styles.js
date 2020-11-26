@@ -13,8 +13,9 @@ export const Input = styled.TextInput `
     border-color: #EA80FC;
     height: 50px;
     border-radius: 6px;
-    font-size: 15px;
+    font-size: 17px;
     padding-left: 13px;
+    font-family: SF_Regular;
 `;
 
 

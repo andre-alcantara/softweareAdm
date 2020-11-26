@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Image } from 'react-native';
 import { Title, Wrapper, SubTitle } from '../Home/styles';
 import { Container, Photo, PhotoText, PhotoView } from '../MatterCreate/styles';
@@ -6,11 +6,27 @@ import { Input, Label, SubmitButton, SubmitText } from '../SignIn/styles';
 
 import { Footer } from '../MatterChoose/styles';
 
+import { ScientistsContext } from '../../contexts/scientist';
+
 import { LinearGradient } from 'expo-linear-gradient';
 // import { Container } from './styles';
 
 const ScientistControl = ({ navigation, route }) => {
   const { info } = route?.params;
+  const { updateScientist } = useContext(ScientistsContext);
+
+  const [key, setKey] = useState(info.key);
+  const [name, setName] = useState(info.name);
+  const [image, setImage] = useState(info.image);
+  const [who, setWho] = useState(info.who);
+  const [known, setKnown] = useState(info.known);
+  const [life, setLife] = useState(info.life);
+  const [nationality, setNationality] = useState(info.nationality);
+  const [award, setAward] = useState(info.award);
+
+  const handleUpdate = () => {
+    updateScientist(key, name, image, life, who, nationality, known);
+  }
 
   return (
     <Wrapper>
@@ -18,8 +34,12 @@ const ScientistControl = ({ navigation, route }) => {
         <Title>Controle de cientista</Title>
 
         <Label>Nome:</Label>
-        <Input>
-          <SubTitle style={{ fontSize: 18, color: '#121212' }}>{info.name}</SubTitle>
+        <Input 
+          value={name}
+          onChangeText={(text) => {
+            setName(text);
+          }}
+        >
         </Input>
 
         <Label>Foto:</Label>
@@ -37,35 +57,57 @@ const ScientistControl = ({ navigation, route }) => {
         </PhotoView>
 
         <Label>Quem foi? (breve explicação):</Label>
-        <Input numberOfLines={30}
-        multiline={true}
-        style={{
-          height: 150,
-          paddingTop: 10,
-          paddingRight: 10
+        <Input 
+          value={who}
+          onChangeText={(text) => setWho(text)}
+          numberOfLines={30}
+          multiline={true}
+          style={{
+            height: 150,
+            paddingTop: 10,
+            paddingRight: 10,
         }}>
-          <SubTitle style={{ fontSize: 17, color: '#121212' }}>{info.who}</SubTitle>
+          
         </Input>
 
         <Label>Nacionalidade:</Label>
-        <Input>
-          <SubTitle style={{ fontSize: 17, color: '#121212' }}>{info.nationality}</SubTitle>
+        <Input
+          value={nationality}
+          onChangeText={(text) => setNationality(text)}
+        >
         </Input>
 
-        <Label>Data de nascimento e falecimento:</Label>
-        <Input>
-          <SubTitle style={{ fontSize: 17, color: '#121212' }}>{info.life}</SubTitle>
-        </Input>
-
-        <Label>Homenagens e/ou prêmios:</Label>
-        <Input numberOfLines={10}
+        <Label>Conhecido por:</Label>
+        <Input 
+        value={known}
+        onChangeText={(text) => setKnown(text)}
+        numberOfLines={30}
         multiline={true}
         style={{
           height: 100,
           paddingTop: 10,
           paddingRight: 10
         }}>
-          <SubTitle style={{ fontSize: 17, color: '#121212' }}>{info.award}</SubTitle>
+        </Input>
+
+        <Label>Data de nascimento e falecimento:</Label>
+        <Input
+        value={life}
+        onChangeText={(text) => setLife(text)}
+        >
+        </Input>
+
+        <Label>Homenagens e/ou prêmios:</Label>
+        <Input 
+        value={award}
+        onChangeText={(text) => setAward(text)}
+        numberOfLines={10}
+        multiline={true}
+        style={{
+          height: 100,
+          paddingTop: 10,
+          paddingRight: 10
+        }}>
         </Input>
 
       
@@ -75,7 +117,7 @@ const ScientistControl = ({ navigation, route }) => {
         paddingBottom: 150
       }}>
         <SubmitButton 
-        onPress={() => {}}
+        onPress={handleUpdate}
         style={{
             marginTop: 15,
             marginBottom: 10

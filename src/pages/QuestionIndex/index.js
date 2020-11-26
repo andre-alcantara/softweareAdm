@@ -36,7 +36,7 @@ const QuestionIndex = ({ navigation, route }) => {
               question: item.question,
               correction: item.correction
             })}>
-              <DifficultyText style={{ marginBottom: 10, color: '#989595' }}>QUESTÃO  {item.key + 1}</DifficultyText>
+              <DifficultyText style={{ marginBottom: 10, color: '#989595', letterSpacing: 2.5 }}>QUESTÃO {item.key + 1}</DifficultyText>
               <QuestionText numberOfLines={2}>{item.question}</QuestionText>
               <DifficultyView>
                 <DifficultyText style={{
