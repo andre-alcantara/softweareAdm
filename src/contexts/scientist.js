@@ -7,9 +7,9 @@ export const ScientistsContext = createContext({});
 
 const ScientistsProvider = ({ children }) => {
   const [scientists, setScientists] = useState([]);
-  
+
   async function listScientist(name) {
-    await firebase.database().ref('scientists').on('value', (snapshot)=>{
+    await firebase.database().ref('scientists').orderByChild('name').on('value', (snapshot)=>{
       setScientists([]);
       if (name != '' ){
         snapshot.forEach((value) =>{

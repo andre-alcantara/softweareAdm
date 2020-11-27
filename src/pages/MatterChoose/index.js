@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FlatList, Image } from 'react-native';
 import { Button, ButtonText } from '../Dashboard/styles';
 import { SubTitle, Title, Wrapper, Container } from '../Home/styles';
@@ -12,8 +12,11 @@ import { QuestionsContext } from '../../contexts/questions';
 
 
 const MatterChoose = ({ navigation }) => {
-  const { matters } = useContext(QuestionsContext);
-
+  const { matters, listMatters } = useContext(QuestionsContext);
+  useEffect(() => {
+    listMatters();
+    console.log(matters);
+  }, []);
 
   return (
     <Wrapper>
@@ -23,8 +26,7 @@ const MatterChoose = ({ navigation }) => {
           marginBottom: 10
         }}>Escolha uma matéria:</SubTitle>
 
-        
-        <FlatList 
+        <FlatList
         showsVerticalScrollIndicator={false}
         style={{
           height: '100%'
@@ -34,7 +36,7 @@ const MatterChoose = ({ navigation }) => {
           }}
           keyExtractor={ item  => item.id}
           data={matters}
-          renderItem={({ item }) => 
+          renderItem={({ item }) =>
             <Button onPress={() => navigation.navigate('LessonIndex', {
               question: item,
               content: item.matterContent
@@ -45,22 +47,21 @@ const MatterChoose = ({ navigation }) => {
               <ButtonText style={{
                 color: '#FFF'
               }}>{item.matterName}</ButtonText>
-              <Image 
+              <Image
                 style={{
                   width: 70,
                   height: 70,
                 }}
                 source={{uri: `${item.matterIcon}`}}
-              />         
-            
+              />
+
             </Button>
           }
         />
 
-      
 
       </Container>
-      
+
           <Footer>
             <SubmitButton onPress={() => navigation.navigate('MatterCreate')} 
             style={{
