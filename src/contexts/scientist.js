@@ -49,7 +49,7 @@ const ScientistsProvider = ({ children }) => {
   async function updateScientist(key, name, image, life, who, nationality, known, award, navigation) {
    
     if (typeof image === 'string'){
-      await firebase.database().ref('scientists').child(key).set({
+      await firebase.database().ref('scientists').child(key).update({
         name: name,
         image: image,
         life: life,

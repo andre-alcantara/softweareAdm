@@ -7,41 +7,6 @@ export const CuriositiesContext = createContext({});
 
 const CuriositiesProvider = ({ children }) => {
   const [curiosities, setCuriosities] = useState([]);
-  const [imageUrl, setImageUrl] = useState('')
-
-  async function uploadCuriosityImage(uri, title) {
-
-    uri = uri.uri;
-
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function(e) {
-        console.log(e);
-        reject(new TypeError('Network request failed'));
-      };
-      xhr.responseType = 'blob';
-      xhr.open('GET', uri, true);
-      xhr.send(null);
-    });
-
-    await firebase.storage().ref('images/curiosities/').child(title).put(blob)
-    .then(async () => {
-      await firebase.storage().ref('images/curiosities/').child(title).getDownloadURL()
-      .then((url) => {
-        console.log(url)
-        setImageUrl(url)
-      })
-    })
-    .catch((error) => {
-      console.log(error.code)
-    })
-
-    blob.close();
-
-  }
 
   async function listCuriosities(title) {
     await firebase.database().ref('curiosity').on('value', (snapshot)=>{
@@ -74,63 +39,132 @@ const CuriositiesProvider = ({ children }) => {
   }
 
   async function updateCuriosity(key, title, description, image, navigation) {
-    
+
     if (typeof image === 'string'){
-      setImageUrl(image);
+      await firebase.database().ref('curiosity').child(key).update({
+        title: title,
+        image: image,
+        description: description,
+      })
+      .then(() => {
+        Alert.alert(
+          "Atualizada! 👏",
+          "Sua curiosidade foi atualizada.",
+          [
+            { text: "OK", onPress: () => navigation.goBack() }
+          ],
+          { cancelable: false }
+        );
+      })
+      .catch((error) => {
+        console.log(error.code)
+      });
     }
 
     else {
-      uploadCuriosityImage(image, title);
+      var uri = image.uri;
+
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function(e) {
+          console.log(e);
+          reject(new TypeError('Network request failed'));
+        };
+        xhr.responseType = 'blob';
+        xhr.open('GET', uri, true);
+        xhr.send(null);
+      });
+
+      await firebase.storage().ref('images/curiosities/').child(title).put(blob)
+      .then(async () => {
+        await firebase.storage().ref('images/curiosities/').child(title).getDownloadURL()
+        .then(async (url) => {
+          await firebase.database().ref('curiosity').child(key).update({
+            title: title,
+            image: url,
+            description: description,
+          })
+          .then(() => {
+            Alert.alert(
+              "Atualizada! 👏",
+              "Sua curiosidade foi atualizada.",
+              [
+                { text: "OK", onPress: () => navigation.goBack() }
+              ],
+              { cancelable: false }
+            );
+          })
+          .catch((error) => {
+            console.log(error.code)
+          });
+        })
+      })
+      .catch((error) => {
+        console.log(error.code)
+      })
+
+      blob.close();
+
     }
 
-    await firebase.database().ref('curiosity').child(key).update({
-      title: title,
-      image: imageUrl,
-      description: description,
-    })
-    .then(() => {
-      Alert.alert(
-        "Atualizada! 👏",
-        "Sua curiosidade foi atualizada.",
-        [
-          { text: "OK", onPress: () => navigation.goBack() }
-        ],
-        { cancelable: false }
-      );
-    })
-    .catch((error) => {
-      console.log(error.code)
-    });
   }
 
   async function addCuriosity(title, description, image, navigation) {
 
     listCuriosities('');
 
-    uploadCuriosityImage(image, title);
-
     var len = curiosities.length;
     var lastKey = curiosities[len - 1].key;
     lastKey = parseInt(lastKey);
 
-    await firebase.database().ref('curiosity').child(lastKey + 1).set({
-      title: title,
-      image: imageUrl,
-      description: description,
-    })
-    .then(() => {
-      Alert.alert(
-        "Adicionado com sucesso! 👏",
-        "Seu cientista foi adicionado.",
-        [
-          { text: "OK", onPress: () => navigation.goBack() }
-        ],
-        { cancelable: false }
-      );
-    })
-    .catch((error) => {
-      console.log(error.code)
-    });
+    var uri = image.uri;
+
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function(e) {
+          console.log(e);
+          reject(new TypeError('Network request failed'));
+        };
+        xhr.responseType = 'blob';
+        xhr.open('GET', uri, true);
+        xhr.send(null);
+      });
+
+      await firebase.storage().ref('images/curiosities/').child(title).put(blob)
+      .then(async () => {
+        await firebase.storage().ref('images/curiosities/').child(title).getDownloadURL()
+        .then(async (url) => {
+          await firebase.database().ref('curiosity').child(lastKey + 1).set({
+            title: title,
+            image: url,
+            description: description,
+          })
+          .then(() => {
+            Alert.alert(
+              "Atualizada! 👏",
+              "Sua curiosidade foi atualizada.",
+              [
+                { text: "OK", onPress: () => navigation.goBack() }
+              ],
+              { cancelable: false }
+            );
+          })
+          .catch((error) => {
+            console.log(error.code)
+          });
+        })
+      })
+      .catch((error) => {
+        console.log(error.code)
+      })
+
+      blob.close();
   }
 
   async function delCuriosity(index, navigation) {

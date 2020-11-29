@@ -7,41 +7,6 @@ export const QuestionsContext = createContext({});
 const QuestionsProvider = ({ children }) => {
 
   const [matters, setMatters] = useState([]);
-  const [imageUrl, setImageUrl] = useState('')
-
-  async function uploadMatterImage(uri, title) {
-
-    uri = uri.uri;
-
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function(e) {
-        console.log(e);
-        reject(new TypeError('Network request failed'));
-      };
-      xhr.responseType = 'blob';
-      xhr.open('GET', uri, true);
-      xhr.send(null);
-    });
-
-    await firebase.storage().ref('images/matter/').child(title).put(blob)
-    .then(async () => {
-      await firebase.storage().ref('images/matter/').child(title).getDownloadURL()
-      .then((url) => {
-        console.log(url)
-        setImageUrl(url)
-      })
-    })
-    .catch((error) => {
-      console.log(error.code)
-    })
-
-    blob.close();
-
-  }
 
   async function listMatters() {
 
@@ -81,127 +46,191 @@ const QuestionsProvider = ({ children }) => {
     var lastKey = matters[len - 1].key;
     lastKey = parseInt(lastKey);
 
-    uploadMatterImage(image, name);
+    uri = image.uri;
 
-    await firebase.database().ref('matter').child(lastKey + 1).set({
-      finished: false,
-      matterName: name,
-      matterIcon: imageUrl,
-      matterColor: color,
-      matterContent: [
-        {
-          title: "Adicione um titulo",
-          description: "Adicione uma descrição",
-          difficulty: "Iniciante",
-          star: 0,
-          questions: [
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function(e) {
+        console.log(e);
+        reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = 'blob';
+      xhr.open('GET', uri, true);
+      xhr.send(null);
+    });
+
+    await firebase.storage().ref('images/matter/').child(name).put(blob)
+    .then(async () => {
+      await firebase.storage().ref('images/matter/').child(name).getDownloadURL()
+      .then(async (url) => {
+        await firebase.database().ref('matter').child(lastKey + 1).set({
+          finished: false,
+          matterName: name,
+          matterIcon: url,
+          matterColor: color,
+          matterContent: [
             {
-              question: "Adicione uma questão",
-              correction: "Adicione uma correção",
-              answers: [
+              title: "Adicione um titulo",
+              description: "Adicione uma descrição",
+              difficulty: "Iniciante",
+              star: 0,
+              questions: [
                 {
-                  "answer" : "Resposta 1",
-                  "correct" : "true"
-                }, {
-                  "answer" : "Resposta 2",
-                  "correct" : "false"
-                }, {
-                  "answer" : "Resposta 4",
-                  "correct" : "false"
-                }, {
-                  "answer" : "Resposta 5",
-                  "correct" : "false"
+                  question: "Adicione uma questão",
+                  correction: "Adicione uma correção",
+                  answers: [
+                    {
+                      "answer" : "Resposta 1",
+                      "correct" : "true"
+                    }, {
+                      "answer" : "Resposta 2",
+                      "correct" : "false"
+                    }, {
+                      "answer" : "Resposta 4",
+                      "correct" : "false"
+                    }, {
+                      "answer" : "Resposta 5",
+                      "correct" : "false"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              title: "Adicione um titulo",
+              description: "Adicione uma descrição",
+              difficulty: "Intermediario",
+              star: 0,
+              questions: [
+                {
+                  question: "Adicione uma questão",
+                  correction: "Adicione uma correção",
+                  answers: [
+                    {
+                      "answer" : "Resposta 1",
+                      "correct" : "true"
+                    }, {
+                      "answer" : "Resposta 2",
+                      "correct" : "false"
+                    }, {
+                      "answer" : "Resposta 4",
+                      "correct" : "false"
+                    }, {
+                      "answer" : "Resposta 5",
+                      "correct" : "false"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              title: "Adicione um titulo",
+              description: "Adicione uma descrição",
+              difficulty: "Avançado",
+              star: 0,
+              questions: [
+                {
+                  question: "Adicione uma questão",
+                  correction: "Adicione uma correção",
+                  answers: [
+                    {
+                      "answer" : "Resposta 1",
+                      "correct" : "true"
+                    }, {
+                      "answer" : "Resposta 2",
+                      "correct" : "false"
+                    }, {
+                      "answer" : "Resposta 4",
+                      "correct" : "false"
+                    }, {
+                      "answer" : "Resposta 5",
+                      "correct" : "false"
+                    }
+                  ]
                 }
               ]
             }
           ]
-        },
-        {
-          title: "Adicione um titulo",
-          description: "Adicione uma descrição",
-          difficulty: "Intermediario",
-          star: 0,
-          questions: [
-            {
-              question: "Adicione uma questão",
-              correction: "Adicione uma correção",
-              answers: [
-                {
-                  "answer" : "Resposta 1",
-                  "correct" : "true"
-                }, {
-                  "answer" : "Resposta 2",
-                  "correct" : "false"
-                }, {
-                  "answer" : "Resposta 4",
-                  "correct" : "false"
-                }, {
-                  "answer" : "Resposta 5",
-                  "correct" : "false"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          title: "Adicione um titulo",
-          description: "Adicione uma descrição",
-          difficulty: "Avançado",
-          star: 0,
-          questions: [
-            {
-              question: "Adicione uma questão",
-              correction: "Adicione uma correção",
-              answers: [
-                {
-                  "answer" : "Resposta 1",
-                  "correct" : "true"
-                }, {
-                  "answer" : "Resposta 2",
-                  "correct" : "false"
-                }, {
-                  "answer" : "Resposta 4",
-                  "correct" : "false"
-                }, {
-                  "answer" : "Resposta 5",
-                  "correct" : "false"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    })
-    .then(() => {
-      console.log('addMatter');
+        })
+        .then(() => {
+          console.log('addMatter');
+        })
+        .catch((error) => {
+          console.log(error.code);
+        });
+      })
     })
     .catch((error) => {
-      console.log(error.code);
-    });
+      console.log(error.code)
+    })
+
+    blob.close();
+
   }
 
   async function updateMatter(matterKey, name, image, color) {
 
     if (typeof image === 'string'){
-      setImageUrl(image);
+      await firebase.database().ref('matter').child(matterKey).update({
+        finished: false,
+        matterName: name,
+        matterIcon: image,
+        matterColor: color,
+      })
+      .then(() => {
+        console.log('updateMatter');
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
     }
 
     else {
-      uploadMatterImage(image, name);
-    }
 
-    await firebase.database().ref('matter').child(matterKey).set({
-      finished: false,
-      matterName: name,
-      matterIcon: imageUrl,
-      matterColor: color,
-    })
-    .then(() => {
-      console.log('updateMatter');
-    })
-    .catch((error) => {
-      console.log(error.code);
-    });
+      var uri = image.uri;
+
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function(e) {
+          console.log(e);
+          reject(new TypeError('Network request failed'));
+        };
+        xhr.responseType = 'blob';
+        xhr.open('GET', uri, true);
+        xhr.send(null);
+      });
+
+      await firebase.storage().ref('images/matter/').child(name).put(blob)
+      .then(async () => {
+        await firebase.storage().ref('images/matter/').child(name).getDownloadURL()
+        .then(async (url) => {
+          await firebase.database().ref('matter').child(matterKey).update({
+            finished: false,
+            matterName: name,
+            matterIcon: url,
+            matterColor: color,
+          })
+          .then(() => {
+            console.log('updateMatter');
+          })
+          .catch((error) => {
+            console.log(error.code);
+          });
+        })
+        .catch((error) => {
+          console.log(error.code);
+        })
+      })
+      .catch((error) => {
+        console.log(error.code);
+      })
+    }
 
   }
 
