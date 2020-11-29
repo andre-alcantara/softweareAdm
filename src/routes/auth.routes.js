@@ -8,7 +8,7 @@ function ActionBarIcon() {
     return (
       <Image
       source={require('../assets/logo.png')}
-      style={{ width: 92, height: 25, marginTop: -10}} />
+      style={{ width: 92, height: 25, marginTop: -10, alignSelf: 'center'}} />
     );
   }
 

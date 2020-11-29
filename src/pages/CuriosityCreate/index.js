@@ -8,34 +8,22 @@ import { Input, Label, SubmitButton, SubmitText } from '../SignIn/styles';
 
 import { Footer } from '../MatterChoose/styles';
 
-import { ScientistsContext } from '../../contexts/scientist';
+import { CuriositiesContext } from '../../contexts/curiosity';
 
 import { LinearGradient } from 'expo-linear-gradient';
 // import { Container } from './styles';
 
-const ScientistControl = ({ route }) => {
-  const { info } = route?.params;
-  const { updateScientist, delScientist } = useContext(ScientistsContext);
+const CuriosityCreate = ({ route }) => {
+  const { updateCuriosity, delCuriosity } = useContext(CuriositiesContext);
   
-
   const navigation = useNavigation();
 
-  const [key, setKey] = useState(info.key);
-  const [name, setName] = useState(info.name);
-  const [image, setImage] = useState(info.image);
-  const [who, setWho] = useState(info.who);
-  const [known, setKnown] = useState(info.known);
-  const [life, setLife] = useState(info.life);
-  const [nationality, setNationality] = useState(info.nationality);
-  const [award, setAward] = useState(info.award);
+  const [key, setKey] = useState('');
+  const [title, setTitle] = useState('');
+  const [image, setImage] = useState('');
+  const [description, setDescription] = useState('');
 
-  const handleUpdate = () => {
-    updateScientist(key, name, image, life, who, nationality, known, navigation);
-  }
-
-  const handleDelete = () => {
-    delScientist(info.key, navigation);
-  }
+  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -44,23 +32,23 @@ const ScientistControl = ({ route }) => {
       quality: 1,
     });
 
-    
-
     if (!result.cancelled) {
       setImage(result);
     }
   };
 
+  
+
   return (
     <Wrapper>
       <Container contentContainerStyle={{ paddingBottom: 180 }} showsVerticalScrollIndicator={false}>
-        <Title>Controle de cientista</Title>
+        <Title>Controle de curiosidade</Title>
 
-        <Label>Nome:</Label>
+        <Label>Título:</Label>
         <Input 
-          value={name}
+          value={title}
           onChangeText={(text) => {
-            setName(text);
+            setTitle(text);
           }}
         >
         </Input>
@@ -72,20 +60,14 @@ const ScientistControl = ({ route }) => {
             source={{ uri: `${image && image.uri}` }} 
             style={{ width: 110, height: 110, borderRadius: 8 }} 
           />
-
-          
-       
-            
-
-
           </Photo>
           <PhotoText>Escolher Imagem</PhotoText>
         </PhotoView>
 
-        <Label>Quem foi? (breve explicação):</Label>
+        <Label>Descrição (breve explicação):</Label>
         <Input 
-          value={who}
-          onChangeText={(text) => setWho(text)}
+          value={description}
+          onChangeText={(text) => setDescription(text)}
           numberOfLines={30}
           multiline={true}
           style={{
@@ -96,54 +78,13 @@ const ScientistControl = ({ route }) => {
           
         </Input>
 
-        <Label>Nacionalidade:</Label>
-        <Input
-          value={nationality}
-          onChangeText={(text) => setNationality(text)}
-        >
-        </Input>
-
-        <Label>Conhecido por:</Label>
-        <Input 
-        value={known}
-        onChangeText={(text) => setKnown(text)}
-        numberOfLines={30}
-        multiline={true}
-        style={{
-          height: 100,
-          paddingTop: 10,
-          paddingRight: 10
-        }}>
-        </Input>
-
-        <Label>Data de nascimento e falecimento:</Label>
-        <Input
-        value={life}
-        onChangeText={(text) => setLife(text)}
-        >
-        </Input>
-
-        <Label>Homenagens e/ou prêmios:</Label>
-        <Input 
-        value={award}
-        onChangeText={(text) => setAward(text)}
-        numberOfLines={10}
-        multiline={true}
-        style={{
-          height: 100,
-          paddingTop: 10,
-          paddingRight: 10
-        }}>
-        </Input>
-
-      
       </Container>
 
       <Footer style={{
         paddingBottom: 150
       }}>
         <SubmitButton 
-        onPress={handleUpdate}
+        onPress={() => {}}
         style={{
             marginTop: 15,
             marginBottom: 10
@@ -160,7 +101,7 @@ const ScientistControl = ({ route }) => {
         </SubmitButton>
 
         <SubmitButton 
-        onPress={handleDelete}
+        onPress={() => {}}
         style={{ marginTop: 0, marginBottom: 20 }}>
         <LinearGradient colors={['#FF5555', '#CF8686']} style={{
           height: 50,
@@ -177,4 +118,4 @@ const ScientistControl = ({ route }) => {
   );
 }
 
-export default ScientistControl;
+export default CuriosityCreate;

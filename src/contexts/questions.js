@@ -48,7 +48,7 @@ const QuestionsProvider = ({ children }) => {
     await firebase.database().ref('matter').once('value')
     .then((snapshot) => {
       setMatters([]);
-      snapshot.forEach( (value)=>{
+      snapshot.forEach( (value)=> {
         let matter = {
           key : value.key,
           matterName : value.val().matterName,

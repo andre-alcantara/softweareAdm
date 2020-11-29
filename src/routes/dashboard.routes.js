@@ -24,53 +24,82 @@ import QuestionControl from '../pages/QuestionControl';
 import ScientistIndex from '../pages/ScientistIndex';
 import ScientistCreate from '../pages/ScientistCreate';
 import ScientistControl from '../pages/ScientistControl';
+import CuriosityIndex from '../pages/CuriosityIndex';
+import CurisityControl from '../pages/CuriosityControl';
+import CuriosityCreate from '../pages/CuriosityCreate';
 
 const DashboardRoutes = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name='Dashboard' component={Dashboard} options={{
         headerTitle:  props => <ActionBarIcon {...props} />,
+        headerTitleAlign: 'center',
         title: 'Voltar',
       }} />
       <Stack.Screen name='MatterChoose' component={MatterChoose} options={{
         headerTitle:  props => <ActionBarIcon {...props} />,
         title: 'Voltar',
+        headerTitleAlign: 'center',
       }} />
       <Stack.Screen name='MatterCreate' component={MatterCreate} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
+         headerTitleAlign: 'center',
       }} />
        <Stack.Screen name='LessonIndex' component={LessonIndex} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
+         headerTitleAlign: 'center',
       }} />
       <Stack.Screen name='LessonCreate' component={LessonCreate} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
+         headerTitleAlign: 'center',
       }} />
        <Stack.Screen name='QuestionIndex' component={QuestionIndex} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
+         headerTitleAlign: 'center',
       }} />
       <Stack.Screen name='QuestionCreate' component={QuestionCreate} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
+         headerTitleAlign: 'center',
       }} />
       <Stack.Screen name='QuestionControl' component={QuestionControl} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
+         headerTitleAlign: 'center',
       }} />
       <Stack.Screen name='ScientistIndex' component={ScientistIndex} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
+         headerTitleAlign: 'center',
       }} />
       <Stack.Screen name='ScientistCreate' component={ScientistCreate} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
+         headerTitleAlign: 'center',
       }} />
       <Stack.Screen name='ScientistControl' component={ScientistControl} options={{
          headerTitle:  props => <ActionBarIcon {...props} />,
          title: 'Voltar',
+         headerTitleAlign: 'center',
+      }} />
+       <Stack.Screen name='CuriosityIndex' component={CuriosityIndex} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+         headerTitleAlign: 'center',
+      }} />
+      <Stack.Screen name='CurisityControl' component={CurisityControl} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+         headerTitleAlign: 'center',
+      }} />
+      <Stack.Screen name='CuriosityCreate' component={CuriosityCreate} options={{
+         headerTitle:  props => <ActionBarIcon {...props} />,
+         title: 'Voltar',
+         headerTitleAlign: 'center',
       }} />
     </Stack.Navigator> 
   )

@@ -7,21 +7,21 @@ import { QuestionButton, QuestionText, DifficultyText, DifficultyView } from '..
 import { Footer } from '../MatterChoose/styles';
 import { SubmitButton, SubmitText } from '../SignIn/styles';
 
-import { ScientistsContext } from '../../contexts/scientist';
+import { CuriositiesContext } from '../../contexts/curiosity';
 
 
-const ScientistIndex = ({ navigation }) => {
-  const { listScientist, scientists } = useContext(ScientistsContext);
+const CuriosityIndex = ({ navigation }) => {
+  const { curiosities, listCuriosities } = useContext(CuriositiesContext);
 
   useEffect(() => {
-    listScientist('');
+    listCuriosities('');
   }, [])
 
   return (
     <Wrapper>
       <Container>
-        <Title>Cientistas</Title>
-        <SubTitle>Cientistas disponíveis:</SubTitle>
+        <Title>Curiosidades</Title>
+        <SubTitle>Curiosidades disponíveis:</SubTitle>
 
         <FlatList 
         showsVerticalScrollIndicator={false}
@@ -31,8 +31,8 @@ const ScientistIndex = ({ navigation }) => {
           contentContainerStyle={{
             paddingBottom: 195
           }}
-          keyExtractor={ item  => item.id}
-          data={scientists}
+          keyExtractor={ item  => item.key}
+          data={curiosities}
           renderItem={({ item }) => 
             <QuestionButton 
             style={{
@@ -40,18 +40,14 @@ const ScientistIndex = ({ navigation }) => {
               alignItems: 'center',
               flexDirection: 'row'
             }}
-            onPress={() => navigation.navigate('ScientistControl', {
-              info: item
-
+            onPress={() => navigation.navigate('CurisityControl', {
+                info: item
             })}>
               
               <View>
-              <QuestionText numberOfLines={2}>{item.name}</QuestionText>
-                <DifficultyText style={{
-                  fontFamily: 'SF_Medium',
-                  color: '#4B4949',
-                  marginTop: 6
-                }}>{item.nationality} </DifficultyText>
+              <QuestionText style={{
+                  width: 270,
+              }} numberOfLines={2}>{item.title}</QuestionText>
                 
               </View>   
               <Image 
@@ -69,7 +65,7 @@ const ScientistIndex = ({ navigation }) => {
 
       <Footer>
         <SubmitButton 
-        onPress={() => navigation.navigate('ScientistCreate')}
+        onPress={() => navigation.navigate('CuriosityCreate')}
         style={{
           marginTop: 15,
           marginBottom: 10
@@ -81,7 +77,7 @@ const ScientistIndex = ({ navigation }) => {
             justifyContent: 'center',
             borderRadius: 6,
           }}>
-            <SubmitText>Adicionar um cientista</SubmitText>
+            <SubmitText>Adicionar uma curiosidade</SubmitText>
           </LinearGradient>
           
         </SubmitButton>
@@ -90,4 +86,4 @@ const ScientistIndex = ({ navigation }) => {
   );
 }
 
-export default ScientistIndex;
+export default CuriosityIndex;

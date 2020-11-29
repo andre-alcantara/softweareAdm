@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { TouchableOpacity, View, Image } from 'react-native';
 import { Title } from '../Home/styles';
 import { Input, Label, SubmitButton, SubmitText } from '../SignIn/styles';
 import { Footer } from '../MatterChoose/styles';
+
+import * as ImagePicker from 'expo-image-picker';
+import { QuestionsContext } from '../../contexts/questions';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Container, PhotoView, Photo, PhotoText, Wrapper, Content } from './styles';
 
 const MatterCreate = () => {
+  const { addMatter } = useContext(QuestionsContext);
+
   const backgroundColors = ['#5CD859', '#24A6D9', '#595BD9', '#8022D9', '#D159D8', '#FF5555' ]
   const [color, setColor] = useState(backgroundColors[0])
+
+  const [key, setKey] = useState('');
+  const [name, setName] = useState('');
+  const [image, setImage] = useState('');
+
+  const handleAdd = () => {
+    addMatter(name, image, color)
+  }
 
   const renderColors = () => {
     return backgroundColors.map(color => {
@@ -20,13 +33,25 @@ const MatterCreate = () => {
         style={{backgroundColor: color, width: 50, height: 50, borderRadius: 8}}
         onPress={() => {
           setColor(color);      
-        }
-        }
+        }}
         >
       </TouchableOpacity>
       )
     })
   }
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [3, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result);
+    }
+  };
 
   return (
     <Wrapper>
@@ -35,11 +60,19 @@ const MatterCreate = () => {
        <Title>Criação de matéria</Title>
 
        <Label>Tema:</Label>
-       <Input></Input>
+       <Input
+       value={name}
+       onChangeText={(text) => setName(text)}
+       ></Input>
 
        <Label>Foto:</Label>
-       <PhotoView>
-         <Photo></Photo>
+       <PhotoView onPress={pickImage}>
+         <Photo>
+         <Image 
+            source={{ uri: `${image && image.uri}` }} 
+            style={{ width: 110, height: 110, borderRadius: 8 }} 
+          />
+         </Photo>
          <PhotoText>Escolher imagem</PhotoText>
        </PhotoView>
 
@@ -73,7 +106,7 @@ const MatterCreate = () => {
       </Container>
       
       <Footer>
-        <SubmitButton onPress={() => navigation.navigate('ThemeCreate')} 
+        <SubmitButton onPress={handleAdd} 
           style={{
             marginTop: 15,
             marginBottom: 10

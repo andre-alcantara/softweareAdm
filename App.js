@@ -8,6 +8,7 @@ import Routes from './src/routes/routes';
 import AuthProvider from './src/contexts/auth';
 import QuestionsProvider from './src/contexts/questions';
 import ScientistsProvider from './src/contexts/scientist';
+import CuriositiesProvider from './src/contexts/curiosity';
   
   const App = () => {
     let [fontsLoaded] = useFonts({
@@ -27,11 +28,13 @@ import ScientistsProvider from './src/contexts/scientist';
         <AuthProvider>
           <QuestionsProvider>
             <ScientistsProvider>
-              <StatusBar 
-                barStyle= 'dark-content'
-                backgroundColor='transparent'
-              />
-              <Routes /> 
+              <CuriositiesProvider>
+                <StatusBar 
+                  barStyle= 'dark-content'
+                  backgroundColor='transparent'
+                />
+                <Routes /> 
+              </CuriositiesProvider>
             </ScientistsProvider>
           </QuestionsProvider>
         </AuthProvider>

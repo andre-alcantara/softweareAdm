@@ -8,34 +8,30 @@ import { Input, Label, SubmitButton, SubmitText } from '../SignIn/styles';
 
 import { Footer } from '../MatterChoose/styles';
 
-import { ScientistsContext } from '../../contexts/scientist';
+import { CuriositiesContext } from '../../contexts/curiosity';
 
 import { LinearGradient } from 'expo-linear-gradient';
 // import { Container } from './styles';
 
-const ScientistControl = ({ route }) => {
+const CuriosityControl = ({ route }) => {
   const { info } = route?.params;
-  const { updateScientist, delScientist } = useContext(ScientistsContext);
+  const { updateCuriosity, delCuriosity } = useContext(CuriositiesContext);
   
-
   const navigation = useNavigation();
 
   const [key, setKey] = useState(info.key);
-  const [name, setName] = useState(info.name);
+  const [title, setTitle] = useState(info.title);
   const [image, setImage] = useState(info.image);
-  const [who, setWho] = useState(info.who);
-  const [known, setKnown] = useState(info.known);
-  const [life, setLife] = useState(info.life);
-  const [nationality, setNationality] = useState(info.nationality);
-  const [award, setAward] = useState(info.award);
+  const [description, setDescription] = useState(info.description);
 
   const handleUpdate = () => {
-    updateScientist(key, name, image, life, who, nationality, known, navigation);
+    updateCuriosity(info.key, title, description, image, navigation);
   }
 
   const handleDelete = () => {
-    delScientist(info.key, navigation);
+    delCuriosity(info.key, navigation);
   }
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -44,12 +40,12 @@ const ScientistControl = ({ route }) => {
       quality: 1,
     });
 
-    
-
     if (!result.cancelled) {
       setImage(result);
     }
   };
+
+  
 
   return (
     <Wrapper>
@@ -58,9 +54,9 @@ const ScientistControl = ({ route }) => {
 
         <Label>Nome:</Label>
         <Input 
-          value={name}
+          value={title}
           onChangeText={(text) => {
-            setName(text);
+            setTitle(text);
           }}
         >
         </Input>
@@ -72,20 +68,14 @@ const ScientistControl = ({ route }) => {
             source={{ uri: `${image && image.uri}` }} 
             style={{ width: 110, height: 110, borderRadius: 8 }} 
           />
-
-          
-       
-            
-
-
           </Photo>
           <PhotoText>Escolher Imagem</PhotoText>
         </PhotoView>
 
         <Label>Quem foi? (breve explicação):</Label>
         <Input 
-          value={who}
-          onChangeText={(text) => setWho(text)}
+          value={description}
+          onChangeText={(text) => setDescription(text)}
           numberOfLines={30}
           multiline={true}
           style={{
@@ -96,47 +86,6 @@ const ScientistControl = ({ route }) => {
           
         </Input>
 
-        <Label>Nacionalidade:</Label>
-        <Input
-          value={nationality}
-          onChangeText={(text) => setNationality(text)}
-        >
-        </Input>
-
-        <Label>Conhecido por:</Label>
-        <Input 
-        value={known}
-        onChangeText={(text) => setKnown(text)}
-        numberOfLines={30}
-        multiline={true}
-        style={{
-          height: 100,
-          paddingTop: 10,
-          paddingRight: 10
-        }}>
-        </Input>
-
-        <Label>Data de nascimento e falecimento:</Label>
-        <Input
-        value={life}
-        onChangeText={(text) => setLife(text)}
-        >
-        </Input>
-
-        <Label>Homenagens e/ou prêmios:</Label>
-        <Input 
-        value={award}
-        onChangeText={(text) => setAward(text)}
-        numberOfLines={10}
-        multiline={true}
-        style={{
-          height: 100,
-          paddingTop: 10,
-          paddingRight: 10
-        }}>
-        </Input>
-
-      
       </Container>
 
       <Footer style={{
@@ -177,4 +126,4 @@ const ScientistControl = ({ route }) => {
   );
 }
 
-export default ScientistControl;
+export default CuriosityControl;

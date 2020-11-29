@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Image, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, View } from 'react-native';
+import { Image, View } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { Title, Wrapper } from '../Home/styles';
 import { Container, Photo, PhotoText, PhotoView } from '../MatterCreate/styles';
 import { Input, Label, SubmitButton, SubmitText } from '../SignIn/styles';
@@ -31,7 +32,21 @@ const ScientistCreate = () => {
     addScientist(name, image, life, who, nationality, known, award, navigation);
   }
 
-  
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [3, 3],
+      quality: 1,
+    });
+
+    // console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result);
+    }
+  };
+
   return (
     <Wrapper>
       
@@ -52,15 +67,15 @@ const ScientistCreate = () => {
             </Input>
 
             <Label>Foto:</Label>
-            <PhotoView>
+            <PhotoView onPress={pickImage}>
               <Photo>
+              
               <Image 
-                style={{
-                  width: 110,
-                  height: 110
-                }}
-                source={{ uri: `${image}` }}
+                source={{ uri: `${image && image.uri}` }} 
+                style={{ width: 110, height: 110, borderRadius: 8 }} 
               />
+
+              
               </Photo>
               <PhotoText>Escolher Imagem</PhotoText>
             </PhotoView>

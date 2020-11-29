@@ -82,7 +82,7 @@ const ScientistsProvider = ({ children }) => {
   }
 
   async function updateScientist(key, name, image, life, who, nationality, known, navigation) {
-
+   
     if (typeof image === 'string'){
       setImageUrl(image);
     }

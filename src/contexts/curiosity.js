@@ -73,7 +73,7 @@ const CuriositiesProvider = ({ children }) => {
     });
   }
 
-  async function updateCuriosity(key, title, description, image) {
+  async function updateCuriosity(key, title, description, image, navigation) {
     
     if (typeof image === 'string'){
       setImageUrl(image);
@@ -90,8 +90,8 @@ const CuriositiesProvider = ({ children }) => {
     })
     .then(() => {
       Alert.alert(
-        "Atualizado! 👏",
-        "Seu cientista foi atualizado.",
+        "Atualizada! 👏",
+        "Sua curiosidade foi atualizada.",
         [
           { text: "OK", onPress: () => navigation.goBack() }
         ],

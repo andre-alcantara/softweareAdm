@@ -20,7 +20,7 @@ const Dashboard = ({ navigation }) => {
       if (Platform.OS !== 'web') {
         const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
         if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+          alert('Desculpe, nós precisamos de permissão para ter acesso a suas fotos!');
         }
       }
     })();
@@ -49,7 +49,7 @@ const Dashboard = ({ navigation }) => {
             />
           </Button>
 
-          <Button onPress={() => {}} style={{
+          <Button onPress={() => navigation.navigate('CuriosityIndex')} style={{
             backgroundColor: '#9BDCEA',
           }}>
             <ButtonText>Curiosidades</ButtonText>

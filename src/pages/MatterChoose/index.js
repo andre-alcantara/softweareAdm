@@ -15,7 +15,7 @@ const MatterChoose = ({ navigation }) => {
   const { matters, listMatters } = useContext(QuestionsContext);
   useEffect(() => {
     listMatters();
-    console.log(matters);
+    
   }, []);
 
   return (
@@ -54,7 +54,6 @@ const MatterChoose = ({ navigation }) => {
                 }}
                 source={{uri: `${item.matterIcon}`}}
               />
-
             </Button>
           }
         />
