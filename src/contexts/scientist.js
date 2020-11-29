@@ -46,10 +46,10 @@ const ScientistsProvider = ({ children }) => {
     });
   }
 
-  async function updateScientist(key, name, image, life, who, nationality, known, navigation) {
+  async function updateScientist(key, name, image, life, who, nationality, known, award, navigation) {
    
     if (typeof image === 'string'){
-      await firebase.database().ref('scientists').child(lastKey + 1).set({
+      await firebase.database().ref('scientists').child(key).set({
         name: name,
         image: image,
         life: life,
