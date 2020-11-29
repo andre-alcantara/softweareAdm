@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { Container, SubTitle, Title, Wrapper } from '../Home/styles';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -13,6 +14,17 @@ import { SubmitButton, SubmitText } from '../SignIn/styles';
 
 const Dashboard = ({ navigation }) => {
   const { user, signOut } = useContext(AuthContext);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
 
   return (
       <Wrapper>

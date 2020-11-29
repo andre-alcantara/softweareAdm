@@ -7,6 +7,41 @@ export const ScientistsContext = createContext({});
 
 const ScientistsProvider = ({ children }) => {
   const [scientists, setScientists] = useState([]);
+  const [imageUrl, setImageUrl] = useState('')
+
+  async function uploadScientistImage(uri, title) {
+
+    uri = uri.uri;
+
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function(e) {
+        console.log(e);
+        reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = 'blob';
+      xhr.open('GET', uri, true);
+      xhr.send(null);
+    });
+
+    await firebase.storage().ref('images/scientist/').child(title).put(blob)
+    .then(async () => {
+      await firebase.storage().ref('images/scientist/').child(title).getDownloadURL()
+      .then((url) => {
+        console.log(url)
+        setImageUrl(url)
+      })
+    })
+    .catch((error) => {
+      console.log(error.code)
+    })
+
+    blob.close();
+
+  }
 
   async function listScientist(name) {
     await firebase.database().ref('scientists').orderByChild('name').on('value', (snapshot)=>{
@@ -47,9 +82,18 @@ const ScientistsProvider = ({ children }) => {
   }
 
   async function updateScientist(key, name, image, life, who, nationality, known, navigation) {
+
+    if (typeof image === 'string'){
+      setImageUrl(image);
+    }
+
+    else {
+      uploadScientistImage(image, name);
+    }
+
     await firebase.database().ref('scientists').child(key).update({
       name: name,
-      image: image,
+      image: imageUrl,
       life: life,
       who: who,
       nationality: nationality,
@@ -74,13 +118,15 @@ const ScientistsProvider = ({ children }) => {
 
     listScientist('');
 
+    uploadScientistImage(image, name);
+
     var len = scientists.length;
     var lastKey = scientists[len - 1].key;
     lastKey = parseInt(lastKey);
 
     await firebase.database().ref('scientists').child(lastKey + 1).set({
       name: name,
-      image: image,
+      image: imageUrl,
       life: life,
       who: who,
       nationality: nationality,

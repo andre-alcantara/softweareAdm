@@ -7,6 +7,41 @@ export const QuestionsContext = createContext({});
 const QuestionsProvider = ({ children }) => {
 
   const [matters, setMatters] = useState([]);
+  const [imageUrl, setImageUrl] = useState('')
+
+  async function uploadMatterImage(uri, title) {
+
+    uri = uri.uri;
+
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function(e) {
+        console.log(e);
+        reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = 'blob';
+      xhr.open('GET', uri, true);
+      xhr.send(null);
+    });
+
+    await firebase.storage().ref('images/matter/').child(title).put(blob)
+    .then(async () => {
+      await firebase.storage().ref('images/matter/').child(title).getDownloadURL()
+      .then((url) => {
+        console.log(url)
+        setImageUrl(url)
+      })
+    })
+    .catch((error) => {
+      console.log(error.code)
+    })
+
+    blob.close();
+
+  }
 
   async function listMatters() {
 
@@ -39,17 +74,19 @@ const QuestionsProvider = ({ children }) => {
     });
   }
 
-  async function addMatter(name, icon, color) {
+  async function addMatter(name, image, color) {
     listMatters();
 
     var len = matters.length;
     var lastKey = matters[len - 1].key;
     lastKey = parseInt(lastKey);
 
+    uploadMatterImage(image, name);
+
     await firebase.database().ref('matter').child(lastKey + 1).set({
       finished: false,
       matterName: name,
-      matterIcon: icon,
+      matterIcon: imageUrl,
       matterColor: color,
       matterContent: [
         {
@@ -143,11 +180,20 @@ const QuestionsProvider = ({ children }) => {
     });
   }
 
-  async function updateMatter(matterKey, name, icon, color) {
+  async function updateMatter(matterKey, name, image, color) {
+
+    if (typeof image === 'string'){
+      setImageUrl(image);
+    }
+
+    else {
+      uploadMatterImage(image, name);
+    }
+
     await firebase.database().ref('matter').child(matterKey).set({
       finished: false,
       matterName: name,
-      matterIcon: icon,
+      matterIcon: imageUrl,
       matterColor: color,
     })
     .then(() => {
@@ -159,16 +205,23 @@ const QuestionsProvider = ({ children }) => {
 
   }
 
-  async function updateDifficulty(matterKey, difficultyKey, title, description, hearts, difficulty) {
+  async function updateDifficulty(matterKey, difficultyKey, title, description, hearts) {
 
     await firebase.database().ref('matter/' + matterKey).child(difficultyKey).update({
       title: title,
       description: description,
-      difficulty: difficulty,
       star: hearts,
     })
-    .then(() => {
-      console.log('updateDifficulty')
+    .then(async () => {
+      await firebase.database().ref('matter').child(matterKey).set({
+        finished: false,
+      })
+      .then(() => {
+        console.log('updateDifficulty');
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
     })
     .catch((error) => {
       console.log(error.code)
@@ -176,25 +229,25 @@ const QuestionsProvider = ({ children }) => {
 
   }
 
-  async function addQuestion(matterKey, difficultyKey, question, correction, answers) {
+  async function addQuestion(matterKey, difficultyKey, question, correction, answer1, answer2, answer3, answer4) {
     listMatters()
 
     // answers array example
-    // var answers = [
-    //   {
-    //     "answer" : "Resposta 1",
-    //     "correct" : "true"
-    //   }, {
-    //     "answer" : "Resposta 2",
-    //     "correct" : "false"
-    //   }, {
-    //     "answer" : "Resposta 4",
-    //     "correct" : "false"
-    //   }, {
-    //     "answer" : "Resposta 5",
-    //     "correct" : "false"
-    //   }
-    // ]
+    var answers = [
+      {
+        "answer" : answer1.answer,
+        "correct" : answer1.correct
+      }, {
+        "answer" : answer2.answer,
+        "correct" : answer2.correct
+      }, {
+        "answer" : answer3.answer,
+        "correct" : answer3.correct
+      }, {
+        "answer" : answer4.answer,
+        "correct" : answer4.correct
+      }
+    ];
 
     var len = matters[matterKey].matterContent[difficultyKey].questions.length;
     var lastKey = matters[matterKey].matterContent[difficultyKey].questions[len - 1].key;
@@ -207,8 +260,16 @@ const QuestionsProvider = ({ children }) => {
       correction: correction,
       answers: answers,
     })
-    .then(() => {
-      console.log('addQuestion')
+    .then(async () => {
+      await firebase.database().ref('matter').child(matterKey).set({
+        finished: false,
+      })
+      .then(() => {
+        onsole.log('updateDifficulty');
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
     })
     .catch((error) => {
       console.log(error.code)
@@ -216,33 +277,29 @@ const QuestionsProvider = ({ children }) => {
 
   }
 
-  async function updateQuestion(matterKey, difficultyKey, question, correction, answers) {
-    listMatters()
+  async function updateQuestion(matterKey, difficultyKey, questionKey, question, correction, answer1, answer2, answer3, answer4) {
+    listMatters();
+
 
     // answers array example
-    // var answers = [
-    //   {
-    //     "answer" : "Resposta 1",
-    //     "correct" : "true"
-    //   }, {
-    //     "answer" : "Resposta 2",
-    //     "correct" : "false"
-    //   }, {
-    //     "answer" : "Resposta 4",
-    //     "correct" : "false"
-    //   }, {
-    //     "answer" : "Resposta 5",
-    //     "correct" : "false"
-    //   }
-    // ]
+    var answers = [
+      {
+        "answer" : answer1.answer,
+        "correct" : answer1.correct
+      }, {
+        "answer" : answer2.answer,
+        "correct" : answer2.correct
+      }, {
+        "answer" : answer3.answer,
+        "correct" : answer3.correct
+      }, {
+        "answer" : answer4.answer,
+        "correct" : answer4.correct
+      }
+    ];
 
-    var len = matters[matterKey].matterContent[difficultyKey].questions.length;
-    var lastKey = matters[matterKey].matterContent[difficultyKey].questions[len - 1].key;
-    lastKey = parseInt(lastKey);
-    var newKey = lastKey + 1
-
-    await firebase.database().ref('matter/'+ matterKey +'/matterContent/'+ difficultyKey +'/questions').child(newKey).update({
-      key: newKey,
+    await firebase.database().ref('matter/'+ matterKey +'/matterContent/'+ difficultyKey +'/questions').child(questionKey).update({
+      key: questionKey,
       question: question,
       correction: correction,
       answers: answers,
@@ -253,12 +310,21 @@ const QuestionsProvider = ({ children }) => {
     .catch((error) => {
       console.log(error.code)
     });
+  }
 
+  async function delQuestion(matterKey, difficultyKey, questionKey) {
+    await firebase.database().ref('matter/'+ matterKey +'/matterContent/'+ difficultyKey +'/questions').child(questionKey).remove()
+    .then(() => {
+      console.log("delQuestion");
+    })
+    .catch((error) => {
+      console.log(error.code);
+    })
   }
 
 
   return (
-    <QuestionsContext.Provider value={{ listMatters, changeStatus, addMatter, updateMatter, updateDifficulty, addQuestion, updateQuestion, matters }}>
+    <QuestionsContext.Provider value={{ listMatters, changeStatus, addMatter, updateMatter, updateDifficulty, addQuestion, updateQuestion, delQuestion, matters }}>
       { children }
     </QuestionsContext.Provider>
   );

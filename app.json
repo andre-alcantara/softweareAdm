@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "softweareAdm",
-    "slug": "softweareAdm",
+    "name": "admin.",
+    "slug": "admin.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
