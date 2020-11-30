@@ -11,7 +11,7 @@ import { SubmitButton, SubmitText } from '../SignIn/styles';
 // import { Container } from './styles';
 
 const QuestionIndex = ({ navigation, route }) => {
-  const { questions, matter, difficulty } = route?.params;
+  const { matterKey, difficultyKey, questions, matter, difficulty } = route?.params;
 
 
   return (
@@ -52,7 +52,10 @@ const QuestionIndex = ({ navigation, route }) => {
 
       <Footer>
         <SubmitButton 
-        onPress={() => navigation.navigate('QuestionCreate')}
+        onPress={() => navigation.navigate('QuestionCreate', {
+          matterKey: matterKey,
+          difficultyKey: difficultyKey
+        })}
         style={{
           marginTop: 15,
           marginBottom: 10

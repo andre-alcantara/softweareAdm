@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { Container, SubTitle, Title, Wrapper } from '../Home/styles';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Modalize } from 'react-native-modalize';
 
 import { QuestionButton, QuestionText, DifficultyText, DifficultyView } from './styles';
 import { Footer } from '../MatterChoose/styles';
@@ -10,6 +11,15 @@ import { SubmitButton, SubmitText } from '../SignIn/styles';
 const LessonIndex = ({ route, navigation }) => {
   const { question, content } = route?.params;
 
+
+  const [key, setKey] = useState(null);
+  const [finished, setFinished] = useState(null);
+
+  const modalizeRef = useRef(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
 
   return (
     <Wrapper>
@@ -24,10 +34,12 @@ const LessonIndex = ({ route, navigation }) => {
           contentContainerStyle={{
             paddingBottom: 195
           }}
-          keyExtractor={ item  => item.id}
+          keyExtractor={ item  => item.key}
           data={content}
           renderItem={({ item }) => 
             <QuestionButton onPress={() => navigation.navigate('QuestionIndex', {
+              matterKey: question.key,
+              difficultyKey: item.key,
               questions: item.questions,
               matter: item.title,
               difficulty: item.difficulty
@@ -64,6 +76,32 @@ const LessonIndex = ({ route, navigation }) => {
           
         </SubmitButton>
       </Footer>
+
+      <Modalize snapPoint={240} ref={modalizeRef}>  
+      <Wrapper>
+        <Container>
+          <Title>Deseja finalizar a matéria?</Title>
+          <SubTitle>Você precisa finalizar essa matéria para enviá-la ao LovePhysics</SubTitle>
+
+          <SubmitButton onPress={() => {}} 
+            style={{
+              marginTop: 15,
+              marginBottom: 10
+            }}>
+              <LinearGradient colors={['#80D8FF', '#EA80FC']} style={{
+            height: 50,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 6,
+          }}>
+            <SubmitText>Finalizar matéria</SubmitText>
+            </LinearGradient>
+            </SubmitButton>
+        </Container>  
+      </Wrapper>      
+        
+      </Modalize>
     </Wrapper>
   );
 }

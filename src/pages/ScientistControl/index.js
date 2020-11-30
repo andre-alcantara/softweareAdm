@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Image  } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -15,7 +15,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const ScientistControl = ({ route }) => {
   const { info } = route?.params;
-  const { updateScientist, delScientist } = useContext(ScientistsContext);
+  const { updateScientist, delScientist, loading, setLoading } = useContext(ScientistsContext);
   
 
   const navigation = useNavigation();
@@ -30,8 +30,12 @@ const ScientistControl = ({ route }) => {
   const [award, setAward] = useState(info.award);
 
   const handleUpdate = () => {
-    updateScientist(key, name, image, life, who, nationality, known, navigation);
+    updateScientist(key, name, image, life, who, nationality, known, award, navigation);
+
+      
   }
+
+  
 
   const handleDelete = () => {
     delScientist(info.key, navigation);

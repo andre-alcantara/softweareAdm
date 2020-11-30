@@ -9,7 +9,6 @@ const QuestionsProvider = ({ children }) => {
   const [matters, setMatters] = useState([]);
 
   async function listMatters() {
-
     await firebase.database().ref('matter').once('value')
     .then((snapshot) => {
       setMatters([]);
@@ -19,7 +18,8 @@ const QuestionsProvider = ({ children }) => {
           matterName : value.val().matterName,
           matterColor : value.val().matterColor,
           matterContent : value.val().matterContent,
-          matterIcon : value.val().matterIcon
+          matterIcon : value.val().matterIcon,
+          finished: value.val().finished
         }
         setMatters(oldMatter => [...oldMatter, matter]);
       });
@@ -27,12 +27,12 @@ const QuestionsProvider = ({ children }) => {
 
   }
 
-  async function changeStatus(matterKey, status) {
+  async function changeStatus(matterKey) {
     await firebase.database().ref('matter').child(matterKey).update({
-      finished: status,
+      finished: true,
     })
     .then(() => {
-      console.log("changeStatus")
+      console.log('changeStatus')
     })
     .catch((error) => {
       console.log(error.code)
@@ -294,7 +294,7 @@ const QuestionsProvider = ({ children }) => {
         finished: false,
       })
       .then(() => {
-        onsole.log('updateDifficulty');
+        console.log('addQuestion');
       })
       .catch((error) => {
         console.log(error.code);

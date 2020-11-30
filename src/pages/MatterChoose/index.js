@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FlatList, Image } from 'react-native';
 import { Button, ButtonText } from '../Dashboard/styles';
 import { SubTitle, Title, Wrapper, Container } from '../Home/styles';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Modalize } from 'react-native-modalize';
 
 import { Footer } from './styles';
 
@@ -12,10 +13,27 @@ import { QuestionsContext } from '../../contexts/questions';
 
 
 const MatterChoose = ({ navigation }) => {
-  const { matters, listMatters } = useContext(QuestionsContext);
+  const [question, setQuestion] = useState(null);
+  const [content, setContent] = useState(null);
+  const [key, setKey] = useState(null);
+  const [finished, setFinished] = useState(null);
+
+  const modalizeRef = useRef(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
+
+  const finishedMatter = () => {
+    if(finished == false) {
+      changeStatus(key, finished)
+    }
+    
+  }
+
+  const { matters, listMatters, changeStatus } = useContext(QuestionsContext);
   useEffect(() => {
     listMatters();
-    
   }, []);
 
   return (
@@ -34,13 +52,24 @@ const MatterChoose = ({ navigation }) => {
           contentContainerStyle={{
             paddingBottom: 195
           }}
-          keyExtractor={ item  => item.id}
+          keyExtractor={ item  => item.key}
           data={matters}
           renderItem={({ item }) =>
-            <Button onPress={() => navigation.navigate('LessonIndex', {
-              question: item,
-              content: item.matterContent
-            })}
+            <Button onPress={() => {
+              if(item.finished) {
+                navigation.navigate('LessonIndex', {
+                  question: item,
+                  content: item.matterContent
+                })
+              }
+              else {
+                setQuestion(item);
+                setContent(item.matterContent);
+                setKey(item.key);
+                setFinished(item.finished);
+                onOpen();
+              }
+          }}
               style={{
                 backgroundColor: item.matterColor
             }}>
@@ -54,12 +83,42 @@ const MatterChoose = ({ navigation }) => {
                 }}
                 source={{uri: `${item.matterIcon}`}}
               />
+            
+              
             </Button>
           }
         />
 
+       
+
 
       </Container>
+
+      <Modalize snapPoint={240} ref={modalizeRef}>  
+      <Wrapper>
+        <Container>
+          <Title>Deseja finalizar a matéria?</Title>
+          <SubTitle>Você precisa finalizar essa matéria para enviá-la ao LovePhysics</SubTitle>
+
+          <SubmitButton onPress={finishedMatter} 
+            style={{
+              marginTop: 15,
+              marginBottom: 10
+            }}>
+              <LinearGradient colors={['#80D8FF', '#EA80FC']} style={{
+            height: 50,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 6,
+          }}>
+            <SubmitText>Finalizar matéria</SubmitText>
+            </LinearGradient>
+            </SubmitButton>
+        </Container>  
+      </Wrapper>      
+        
+      </Modalize>
 
           <Footer>
             <SubmitButton onPress={() => navigation.navigate('MatterCreate')} 

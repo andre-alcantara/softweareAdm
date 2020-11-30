@@ -7,6 +7,7 @@ export const ScientistsContext = createContext({});
 
 const ScientistsProvider = ({ children }) => {
   const [scientists, setScientists] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   async function listScientist(name) {
     await firebase.database().ref('scientists').on('value', (snapshot)=>{
@@ -45,9 +46,10 @@ const ScientistsProvider = ({ children }) => {
       }
     });
   }
-
+              
   async function updateScientist(key, name, image, life, who, nationality, known, award, navigation) {
-   
+    console.log(navigation)
+    setLoading(true)
     if (typeof image === 'string'){
       await firebase.database().ref('scientists').child(key).update({
         name: name,
@@ -74,6 +76,9 @@ const ScientistsProvider = ({ children }) => {
     }
 
     else {
+      console.log(navigation)
+      setLoading(true);
+      alert('Carregando...')
       var uri = image.uri;
       console.log(uri);
 
@@ -105,9 +110,10 @@ const ScientistsProvider = ({ children }) => {
             known: known
           })
           .then(() => {
+            setLoading(false);
             Alert.alert(
-              "Atualizado! 👏",
-              "Seu cientista foi atualizado.",
+              "Adicionado com sucesso! 👏",
+              "Seu cientista foi adicionado.",
               [
                 { text: "OK", onPress: () => navigation.goBack() }
               ],
@@ -214,7 +220,7 @@ const ScientistsProvider = ({ children }) => {
   }
 
   return (
-    <ScientistsContext.Provider value={{ listScientist, updateScientist, addScientist, delScientist, scientists }}>
+    <ScientistsContext.Provider value={{ listScientist, updateScientist, addScientist, delScientist, scientists, loading, setLoading }}>
       { children }
     </ScientistsContext.Provider>
   );
