@@ -32,6 +32,7 @@ const QuestionsProvider = ({ children }) => {
       finished: true,
     })
     .then(() => {
+      listMatters();
       console.log('changeStatus')
     })
     .catch((error) => {
@@ -157,6 +158,7 @@ const QuestionsProvider = ({ children }) => {
         })
         .then(() => {
           console.log('addMatter');
+          listMatters();
         })
         .catch((error) => {
           console.log(error.code);
@@ -218,6 +220,7 @@ const QuestionsProvider = ({ children }) => {
           })
           .then(() => {
             console.log('updateMatter');
+            listMatters();
           })
           .catch((error) => {
             console.log(error.code);
@@ -247,6 +250,7 @@ const QuestionsProvider = ({ children }) => {
       })
       .then(() => {
         console.log('updateDifficulty');
+        listMatters();
       })
       .catch((error) => {
         console.log(error.code);
@@ -258,8 +262,20 @@ const QuestionsProvider = ({ children }) => {
 
   }
 
-  async function addQuestion(matterKey, difficultyKey, question, correction, answer1, answer2, answer3, answer4) {
+  async function addQuestion(matterKey, difficultyKey, question, correction, answer1, answer2, answer3, answer4, correct) {
     listMatters()
+    if (correct === "first"){
+      answer1.correct = "true"
+    }
+    if (correct === "second"){
+      answer2.correct = "true"
+    }
+    if (correct === "third"){
+      answer3.correct = "true"
+    }
+    if (correct === "fourth"){
+      answer4.correct = "true"
+    }
 
     // answers array example
     var answers = [
@@ -290,10 +306,11 @@ const QuestionsProvider = ({ children }) => {
       answers: answers,
     })
     .then(async () => {
-      await firebase.database().ref('matter').child(matterKey).set({
+      await firebase.database().ref('matter').child(matterKey).update({
         finished: false,
       })
       .then(() => {
+        listMatters();
         console.log('addQuestion');
       })
       .catch((error) => {
@@ -334,7 +351,8 @@ const QuestionsProvider = ({ children }) => {
       answers: answers,
     })
     .then(() => {
-      console.log('updateQuestion')
+      console.log('updateQuestion');
+      listMatters();
     })
     .catch((error) => {
       console.log(error.code)
@@ -345,6 +363,7 @@ const QuestionsProvider = ({ children }) => {
     await firebase.database().ref('matter/'+ matterKey +'/matterContent/'+ difficultyKey +'/questions').child(questionKey).remove()
     .then(() => {
       console.log("delQuestion");
+      listMatters();
     })
     .catch((error) => {
       console.log(error.code);

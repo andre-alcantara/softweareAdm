@@ -27,11 +27,13 @@ const QuestionCreate = ({ route }) => {
     setAnswer2({});
     setAnswer3({});
     setAnswer4({});
-  }, [])
+  }, []);
 
-  const addNewQuestion = () => {
-    addQuestion(matterKey, difficultyKey, question, correction, answer1, answer2, answer3, answer4)
+  function create() {
+    console.log(value);
+    addQuestion(matterKey, difficultyKey, question, correction, answer1, answer2, answer3, answer4, value);
   }
+
 
   return (
     <Wrapper>
@@ -73,12 +75,6 @@ const QuestionCreate = ({ route }) => {
       <Input
       value={answer1}
       onChangeText={(text) =>  
-      value === "first" ?  
-      setAnswer1({
-        "answer": text,
-        "correct": "true"
-      })
-      :
       setAnswer1({
         "answer": text,
         "correct": "false"
@@ -107,13 +103,7 @@ const QuestionCreate = ({ route }) => {
       <Label>Resposta 2:</Label>
       <Input
       value={answer2}
-      onChangeText={(text) =>  
-      value === "second" ?  
-      setAnswer2({
-        "answer": text,
-        "correct": "true"
-      })
-      :
+      onChangeText={(text) =>
       setAnswer2({
         "answer": text,
         "correct": "false"
@@ -137,13 +127,7 @@ const QuestionCreate = ({ route }) => {
       <Label>Resposta 3:</Label>
       <Input
       value={answer3}
-      onChangeText={(text) =>  
-      value === "third" ?  
-      setAnswer3({
-        "answer": text,
-        "correct": "true"
-      })
-      :
+      onChangeText={(text) =>
       setAnswer3({
         "answer": text,
         "correct": "false"
@@ -168,13 +152,7 @@ const QuestionCreate = ({ route }) => {
       <Label>Resposta 4:</Label>
       <Input
       value={answer4}
-      onChangeText={(text) =>  
-      value === "fourth" ?  
-      setAnswer4({
-        "answer": text,
-        "correct": "true"
-      })
-      :
+      onChangeText={(text) =>
       setAnswer4({
         "answer": text,
         "correct": "false"
@@ -201,7 +179,7 @@ const QuestionCreate = ({ route }) => {
 
       <Footer>
         <SubmitButton 
-        onPress={addNewQuestion}
+        onPress={create}
         style={{
             marginTop: 15,
             marginBottom: 10
