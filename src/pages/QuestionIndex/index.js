@@ -32,6 +32,9 @@ const QuestionIndex = ({ navigation, route }) => {
           renderItem={({ item }) => 
             
             <QuestionButton onPress={() => navigation.navigate('QuestionControl', {
+              matterKey: matterKey,
+              difficultyKey: difficultyKey,
+              questionKey: item.key,
               answer: item.answers,
               question: item.question,
               correction: item.correction

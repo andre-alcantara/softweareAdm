@@ -30,7 +30,6 @@ const QuestionCreate = ({ route }) => {
   }, []);
 
   function create() {
-    console.log(value);
     addQuestion(matterKey, difficultyKey, question, correction, answer1, answer2, answer3, answer4, value);
   }
 

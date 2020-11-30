@@ -9,7 +9,9 @@ import { Footer } from '../MatterChoose/styles';
 import { SubmitButton, SubmitText } from '../SignIn/styles';
 
 const LessonIndex = ({ route, navigation }) => {
-  const { question, content } = route?.params;
+  const { question, content, matterKey } = route?.params;
+
+  console.log(matterKey)
 
 
   const [key, setKey] = useState(null);

@@ -59,7 +59,7 @@ const MatterChoose = ({ navigation }) => {
               if(item.finished) {
                 navigation.navigate('LessonIndex', {
                   question: item,
-                  content: item.matterContent
+                  content: item.matterContent,
                 })
               }
               else {
@@ -94,7 +94,7 @@ const MatterChoose = ({ navigation }) => {
 
       </Container>
 
-      <Modalize snapPoint={240} ref={modalizeRef}>  
+      <Modalize modalHeight={280} ref={modalizeRef}>  
       <Wrapper>
         <Container>
           <Title>Deseja finalizar a matéria?</Title>
@@ -102,8 +102,10 @@ const MatterChoose = ({ navigation }) => {
 
           <SubmitButton onPress={finishedMatter} 
             style={{
-              marginTop: 15,
-              marginBottom: 10
+              marginTop: 10,
+              marginBottom: 10,
+              borderWidth: 1,
+              borderColor: '#EA80FC'
             }}>
               <LinearGradient colors={['#80D8FF', '#EA80FC']} style={{
             height: 50,
@@ -113,6 +115,25 @@ const MatterChoose = ({ navigation }) => {
             borderRadius: 6,
           }}>
             <SubmitText>Finalizar matéria</SubmitText>
+            </LinearGradient>
+            </SubmitButton>
+
+            <SubmitButton onPress={() =>  navigation.navigate('LessonIndex', {
+                  question: question,
+                  content: content,
+                })} 
+            style={{
+              marginTop: 8,
+              marginBottom: 10
+            }}>
+              <LinearGradient colors={['#80D8FF', '#EA80FC']} style={{
+            height: 50,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 6,
+          }}>
+            <SubmitText>Ver questões</SubmitText>
             </LinearGradient>
             </SubmitButton>
         </Container>  
